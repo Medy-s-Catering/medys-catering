@@ -32,11 +32,9 @@ docker compose up --build
 3. Render reads [render.yaml](render.yaml) and provisions:
    - a managed PostgreSQL (`medys-catering-db`)
    - a Docker web service (`medys-catering`) with `DATABASE_URL` wired in
-4. After the first deploy succeeds, apply the schema once. From the web service "Shell" tab:
-   ```bash
-   psql "$DATABASE_URL" -f db/init.sql
-   ```
+4. The container entrypoint auto-applies [db/init.sql](db/init.sql) on every start (idempotent — `CREATE TABLE IF NOT EXISTS` + `ON CONFLICT DO NOTHING`). No manual step needed.
 5. Log into `/medysStaff/login.php` as `admin / admin123` and immediately change the password (or delete that user and recreate one).
+6. Set `DB_INIT_SKIP=1` in the service env if you ever want to disable the auto-apply (e.g. after running a manual destructive migration).
 
 ## How config resolves
 [medysBook/config/db.php](medysBook/config/db.php) and [medysStaff/config/db.php](medysStaff/config/db.php) connect in this order:

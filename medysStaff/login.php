@@ -1,8 +1,12 @@
 <?php
 session_start();
-// Clear any stale server-side session so the login form always works
-session_unset();
-session_destroy();
+// If the user is already logged in (e.g. they hit the back button after signing in),
+// send them straight to the dashboard instead of clobbering their session.
+// auth_logout.php is the only path that should destroy the session.
+if (isset($_SESSION['mc_user'])) {
+    header('Location: dashboard.php');
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -122,11 +126,10 @@ session_destroy();
       }
     }
 
-    (function checkExistingSession() {
-      if (sessionStorage.getItem('mc_user')) {
-        window.location.replace('dashboard.php');
-      }
-    })();
+    // login.php destroys the PHP session server-side on every load.
+    // Mirror that on the client so stale sessionStorage doesn't bounce us to dashboard.php
+    // (which would then redirect right back here — infinite loop).
+    sessionStorage.clear();
   </script>
 </body>
 </html>

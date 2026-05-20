@@ -1,4 +1,4 @@
-const API = '/medysCatering/medysBook/api';
+const API = '/medysBook/api';
 
 document.addEventListener('DOMContentLoaded', function () {
 

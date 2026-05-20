@@ -1,4 +1,4 @@
-const API = '/medysCatering/medysStaff/api';
+const API = '/medysStaff/api';
 
 /* ============================================================
    MEDY'S CATERING – STAFF SYSTEM GLOBAL SCRIPTS

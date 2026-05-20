@@ -49,7 +49,7 @@ if ($method == 'POST') {
         exit;
     }
 
-    $hash = password($d['password'], PASSWORD_DEFAULT);
+    $hash = password_hash($d['password'], PASSWORD_DEFAULT);
     $stmt = $pdo->prepare("INSERT INTO users (full_name, username, email, password, role, status) VALUES (?,?,?,?,?,?)");
     $stmt->execute([
         trim($d['full_name']),
@@ -78,7 +78,7 @@ if ($method == 'PUT') {
     if (isset($d['email']))      { $sets[] = 'email = ?';         $params[] = trim($d['email']); }
     if (!empty($d['role']))      { $sets[] = 'role = ?';          $params[] = $d['role']; }
     if (!empty($d['status']))    { $sets[] = 'status = ?';        $params[] = $d['status']; }
-    if (!empty($d['password']))  { $sets[] = 'password = ?'; $params[] = password($d['password'], PASSWORD_DEFAULT); }
+    if (!empty($d['password']))  { $sets[] = 'password = ?'; $params[] = password_hash($d['password'], PASSWORD_DEFAULT); }
 
     if (empty($sets)) {
         http_response_code(422);

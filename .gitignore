@@ -1,0 +1,16 @@
+# Dependencies
+vendor/
+node_modules/
+
+# Environment / secrets
+.env
+config/db.php
+
+# OS
+.DS_Store
+Thumbs.db
+
+# XAMPP / IDE
+*.log
+.idea/
+.vscode/

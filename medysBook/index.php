@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medy's Catering – Home</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top mc-navbar">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.php">
+        <span class="mc-logo-icon"><i class="bi bi-award-fill"></i></span>
+        <span class="mc-brand-text">Medy's<strong> Catering</strong></span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link active" href="index.php">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="services.php">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.php">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="feedback.php">Feedback</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
+          <li class="nav-item ms-lg-3"><a class="btn mc-btn-outline" href="booking.php">Book Now</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="mc-hero d-flex align-items-center">
+    <div class="mc-hero-overlay"></div>
+    <div class="container position-relative z-1 text-white text-center py-5">
+      <p class="mc-hero-tagline animate-fade-up">Catering &amp; Event Management Excellence</p>
+      <h1 class="mc-hero-title animate-fade-up delay-1">Where Every <span class="mc-accent">Event</span><br>Becomes a Memory</h1>
+      <p class="mc-hero-sub animate-fade-up delay-2 mx-auto">From intimate birthdays to grand corporate events, Medy's Catering brings passion, precision, and professionalism to every occasion.</p>
+      <div class="d-flex flex-wrap justify-content-center gap-3 mt-4 animate-fade-up delay-3">
+        <a href="booking.php" class="btn mc-btn-primary btn-lg px-4">Book Your Event</a>
+        <a href="services.php" class="btn mc-btn-outline btn-lg px-4">Explore Services</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="mc-stats py-4 bg-danger text-white">
+    <div class="container">
+      <div class="row text-center g-3">
+        <div class="col-6 col-md-3"><div class="mc-stat-num">500+</div><div class="mc-stat-label">Events Handled</div></div>
+        <div class="col-6 col-md-3"><div class="mc-stat-num">10+</div><div class="mc-stat-label">Years of Experience</div></div>
+        <div class="col-6 col-md-3"><div class="mc-stat-num">98%</div><div class="mc-stat-label">Client Satisfaction</div></div>
+        <div class="col-6 col-md-3"><div class="mc-stat-num">50+</div><div class="mc-stat-label">Menu Selections</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 mc-section">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <div class="mc-img-frame">
+            <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=800&q=80" alt="Medy's Catering event setup" class="img-fluid rounded-3 shadow-lg" />
+            <div class="mc-img-badge"><i class="bi bi-star-fill me-1"></i> Trusted Since 2010</div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <p class="mc-section-pre">Who We Are</p>
+          <h2 class="mc-section-title">Your Partner in <span class="mc-accent">Unforgettable</span> Events</h2>
+          <p class="mc-body-text">Medy's Catering has been a trusted name in the event management industry for over a decade. We specialize in crafting personalized, seamless experiences for every type of occasion — from intimate celebrations to large corporate gatherings.</p>
+          <p class="mc-body-text">Our team of dedicated professionals handles every detail: from booking coordination and scheduling to on-site execution, so you can sit back and enjoy the moment.</p>
+          <div class="row g-3 mt-2">
+            <div class="col-6"><div class="mc-feature-card"><i class="bi bi-calendar-check mc-feature-icon"></i><p class="mb-0">Organized Scheduling</p></div></div>
+            <div class="col-6"><div class="mc-feature-card"><i class="bi bi-chat-heart mc-feature-icon"></i><p class="mb-0">Personal Coordination</p></div></div>
+            <div class="col-6"><div class="mc-feature-card"><i class="bi bi-clipboard2-check mc-feature-icon"></i><p class="mb-0">Detailed Planning</p></div></div>
+            <div class="col-6"><div class="mc-feature-card"><i class="bi bi-shield-check mc-feature-icon"></i><p class="mb-0">Trusted Service</p></div></div>
+          </div>
+          <a href="about.php" class="btn mc-btn-primary mt-4">Learn More About Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 mc-section mc-section-alt">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="mc-section-pre">What We Offer</p>
+        <h2 class="mc-section-title">Our <span class="mc-accent">Services</span></h2>
+        <p class="mc-body-text mx-auto" style="max-width:550px;">We provide comprehensive catering and event management solutions tailored to your needs.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4"><div class="mc-service-card h-100"><div class="mc-service-icon"><i class="bi bi-building"></i></div><h5 class="mc-service-title">Corporate Events</h5><p class="mc-service-desc">Professional catering and logistics for seminars, conferences, team meetings, and company celebrations.</p><a href="services.php" class="mc-link">Learn More <i class="bi bi-arrow-right"></i></a></div></div>
+        <div class="col-md-6 col-lg-4"><div class="mc-service-card h-100"><div class="mc-service-icon"><i class="bi bi-heart"></i></div><h5 class="mc-service-title">Weddings &amp; Receptions</h5><p class="mc-service-desc">Elegant setups and exquisite menus to make your special day truly extraordinary and memorable.</p><a href="services.php" class="mc-link">Learn More <i class="bi bi-arrow-right"></i></a></div></div>
+        <div class="col-md-6 col-lg-4"><div class="mc-service-card h-100"><div class="mc-service-icon"><i class="bi bi-balloon-heart"></i></div><h5 class="mc-service-title">Birthdays &amp; Socials</h5><p class="mc-service-desc">Fun, vibrant setups with customized menus for birthdays, reunions, and all social celebrations.</p><a href="services.php" class="mc-link">Learn More <i class="bi bi-arrow-right"></i></a></div></div>
+        <div class="col-md-6 col-lg-4"><div class="mc-service-card h-100"><div class="mc-service-icon"><i class="bi bi-mortarboard"></i></div><h5 class="mc-service-title">School Activities</h5><p class="mc-service-desc">Reliable catering support for graduation ceremonies, school fairs, and academic events.</p><a href="services.php" class="mc-link">Learn More <i class="bi bi-arrow-right"></i></a></div></div>
+        <div class="col-md-6 col-lg-4"><div class="mc-service-card h-100"><div class="mc-service-icon"><i class="bi bi-utensils"></i></div><h5 class="mc-service-title">Buffet &amp; Catering</h5><p class="mc-service-desc">Wide selection of Filipino and international cuisine, freshly prepared and beautifully presented.</p><a href="services.php" class="mc-link">Learn More <i class="bi bi-arrow-right"></i></a></div></div>
+        <div class="col-md-6 col-lg-4"><div class="mc-service-card h-100"><div class="mc-service-icon"><i class="bi bi-layout-text-window"></i></div><h5 class="mc-service-title">Venue Decoration</h5><p class="mc-service-desc">Creative and customized venue styling that matches your event theme and personal taste.</p><a href="services.php" class="mc-link">Learn More <i class="bi bi-arrow-right"></i></a></div></div>
+      </div>
+      <div class="text-center mt-5"><a href="services.php" class="btn mc-btn-primary btn-lg px-4">View All Services</a></div>
+    </div>
+  </section>
+
+  <section class="py-5 mc-section">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="mc-section-pre">Our Work</p>
+        <h2 class="mc-section-title">Past <span class="mc-accent">Events</span></h2>
+      </div>
+      <div class="row g-3">
+        <div class="col-6 col-md-4 col-lg-3"><div class="mc-gallery-thumb"><img src="pictures/pic2.jpg" alt="Wedding event" class="img-fluid" /><div class="mc-gallery-overlay"><span>Wedding Reception</span></div></div></div>
+        <div class="col-6 col-md-4 col-lg-3"><div class="mc-gallery-thumb"><img src="pictures/piccorp1.jpg" alt="Corporate event" class="img-fluid" /><div class="mc-gallery-overlay"><span>Corporate Event</span></div></div></div>
+        <div class="col-6 col-md-4 col-lg-3"><div class="mc-gallery-thumb"><img src="pictures/picbirth.jpg" alt="Birthday party" class="img-fluid" /><div class="mc-gallery-overlay"><span>Birthday Party</span></div></div></div>
+        <div class="col-6 col-md-4 col-lg-3"><div class="mc-gallery-thumb"><img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=400&q=80" alt="Buffet setup" class="img-fluid" /><div class="mc-gallery-overlay"><span>Buffet Setup</span></div></div></div>
+      </div>
+      <div class="text-center mt-4"><a href="gallery.php" class="btn mc-btn-outline btn-lg px-4">View Full Gallery</a></div>
+    </div>
+  </section>
+
+  <section class="py-5 mc-section mc-section-red text-white">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="mc-section-pre text-white-50">What Clients Say</p>
+        <h2 class="mc-section-title text-white">Client <span style="color:#ffe066">Testimonials</span></h2>
+      </div>
+      <div class="row g-4" id="testimonialsGrid">
+        <div class="col-12 text-center py-4 text-white-50"><span class="spinner-border spinner-border-sm me-2"></span>Loading testimonials…</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 mc-section-alt">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="mc-section-pre">Client Voices</p>
+        <h2 class="mc-section-title">Share Your <span class="mc-accent">Experience</span></h2>
+        <p class="mc-body-text mx-auto" style="max-width:540px;">We value every opinion. Whether you've attended one of our events or experienced our service, we'd love to hear from you.</p>
+      </div>
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-7">
+          <div class="row g-3">
+            <div class="col-md-4 text-center"><div class="mc-service-card h-100 py-4"><div class="mc-service-icon mx-auto"><i class="bi bi-star-fill"></i></div><h6 class="fw-bold mb-1">Rate Our Service</h6><p class="mc-body-text small mb-0">Give us a star rating based on your experience.</p></div></div>
+            <div class="col-md-4 text-center"><div class="mc-service-card h-100 py-4"><div class="mc-service-icon mx-auto"><i class="bi bi-chat-left-text"></i></div><h6 class="fw-bold mb-1">Leave a Comment</h6><p class="mc-body-text small mb-0">Tell us what you loved or how we can do better.</p></div></div>
+            <div class="col-md-4 text-center"><div class="mc-service-card h-100 py-4"><div class="mc-service-icon mx-auto"><i class="bi bi-people"></i></div><h6 class="fw-bold mb-1">Open to All</h6><p class="mc-body-text small mb-0">No booking needed — all feedback is welcome.</p></div></div>
+          </div>
+        </div>
+        <div class="col-lg-5 text-center text-lg-start">
+          <div class="mc-avg-display mb-3 d-inline-block">
+            <span id="avgRatingNum" style="font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;color:var(--mc-dark);line-height:1">4.8</span>
+            <span id="avgRatingStars" class="d-block" style="color:var(--mc-gold);font-size:1.4rem;margin-top:0.25rem"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i></span>
+            <p id="avgRatingCount" class="mc-body-text small mt-1 mb-0">Average client rating</p>
+          </div>
+          <p class="mc-body-text mb-4">Your feedback goes directly to our team and helps us serve you better at every event.</p>
+          <a href="feedback.php" class="btn mc-btn-primary btn-lg px-5"><i class="bi bi-pencil-fill me-2"></i>Leave Feedback</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 mc-cta text-center">
+    <div class="container">
+      <h2 class="mc-section-title">Ready to Plan Your <span class="mc-accent">Perfect Event?</span></h2>
+      <p class="mc-body-text mx-auto mb-4" style="max-width:520px;">Contact us today or book directly online. Our team is ready to make your event unforgettable.</p>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="booking.php" class="btn mc-btn-primary btn-lg px-5">Book Now</a>
+        <a href="contact.php" class="btn mc-btn-outline-red btn-lg px-5">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mc-footer pt-5 pb-3">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="mc-brand-text fs-4 mb-2"><i class="bi bi-award-fill mc-accent me-2"></i>Medy's<strong> Catering</strong></div>
+          <p class="text-white-50">Your trusted partner for catering and event management services. Excellence in every plate, perfection in every event.</p>
+          <div class="d-flex gap-3 mt-3">
+            <a href="https://www.facebook.com/profile.php?id=100047324067100" target="_blank" rel="noopener" class="mc-social-icon"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="mc-social-icon"><i class="bi bi-instagram"></i></a>
+            <a href="https://m.me/100047324067100" target="_blank" rel="noopener" class="mc-social-icon"><i class="bi bi-messenger"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h6 class="mc-footer-heading">Quick Links</h6>
+          <ul class="mc-footer-links">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="about.php">About</a></li>
+            <li><a href="services.php">Services</a></li>
+            <li><a href="gallery.php">Gallery</a></li>
+            <li><a href="feedback.php">Feedback</a></li>
+            <li><a href="contact.php">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h6 class="mc-footer-heading">Services</h6>
+          <ul class="mc-footer-links">
+            <li><a href="services.php">Corporate Events</a></li>
+            <li><a href="services.php">Weddings</a></li>
+            <li><a href="services.php">Birthdays</a></li>
+            <li><a href="services.php">School Events</a></li>
+            <li><a href="services.php">Buffet Catering</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h6 class="mc-footer-heading">Contact Us</h6>
+          <ul class="mc-footer-links">
+            <li><i class="bi bi-geo-alt-fill mc-accent me-2"></i>Trapiche 2, Tanauan City, Batangas, Philippines, 4232</li>
+            <li><i class="bi bi-telephone-fill mc-accent me-2"></i>0999 864 8368</li>
+            <li><i class="bi bi-envelope-fill mc-accent me-2"></i>mdavesulabo@yahoo.com</li>
+            <li><i class="bi bi-clock-fill mc-accent me-2"></i>Mon–Sat: 8:00 AM – 6:00 PM</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="mc-footer-hr mt-4" />
+      <p class="text-center text-white-50 small mb-0">&copy; 2025 Medy's Catering. All rights reserved. | Developed for Academic Research &ndash; PUP</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/script.js"></script>
+  <script>
+    (async function loadTestimonials() {
+      function escHtml(s) {
+        return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      }
+      function renderStars(n) {
+        const full = Math.floor(n), half = (n - full) >= 0.5 ? 1 : 0, empty = 5 - full - half;
+        return '<i class="bi bi-star-fill"></i>'.repeat(full) + (half ? '<i class="bi bi-star-half"></i>' : '') + '<i class="bi bi-star"></i>'.repeat(empty);
+      }
+      const grid = document.getElementById('testimonialsGrid');
+      try {
+        const data = await fetch(API + '/feedback/public', { headers: { 'Accept': 'application/json' } }).then(r => r.json());
+        if (data.items && data.items.length) {
+          grid.innerHTML = data.items.map(f => `
+            <div class="col-md-4"><div class="mc-testimonial-card">
+              <div class="mc-stars mb-2">${renderStars(f.star_rating)}</div>
+              <p>"${escHtml(f.comments)}"</p>
+              <div class="mc-testimonial-author">– ${escHtml(f.client_name)}${f.event_type ? ', ' + escHtml(f.event_type) : ''}</div>
+            </div></div>`).join('');
+        } else {
+          grid.innerHTML = '<div class="col-12 text-center py-4"><p class="text-white-50 mb-3">No testimonials yet — be the first!</p><a href="feedback.php" class="btn mc-btn-primary">Leave Feedback</a></div>';
+        }
+        if (data.avg_rating) {
+          document.getElementById('avgRatingNum').textContent = data.avg_rating;
+          document.getElementById('avgRatingStars').innerHTML = renderStars(data.avg_rating);
+          document.getElementById('avgRatingCount').textContent = `Average rating from ${data.total_count} client${data.total_count !== 1 ? 's' : ''}`;
+        }
+      } catch (e) {
+        grid.innerHTML = '<div class="col-12 text-center py-4"><p class="text-white-50 mb-3">Testimonials could not be loaded right now.</p><a href="feedback.php" class="btn mc-btn-primary">Leave Feedback</a></div>';
+      }
+    })();
+  </script>
+</body>
+</html>

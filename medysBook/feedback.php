@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leave a Feedback – Medy's Catering</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    .mc-star-rating{display:flex;flex-direction:row-reverse;gap:0.3rem;justify-content:flex-end}
+    .mc-star-rating input{display:none}
+    .mc-star-rating label{font-size:2.4rem;color:#ddd;cursor:pointer;transition:color 0.15s ease,transform 0.15s ease;line-height:1}
+    .mc-star-rating label:hover,.mc-star-rating label:hover~label,.mc-star-rating input:checked~label{color:var(--mc-gold)}
+    .mc-star-rating label:hover{transform:scale(1.15)}
+    #starLabel{font-size:0.88rem;font-weight:700;color:var(--mc-gray);margin-top:0.4rem;min-height:1.2em;transition:color 0.2s}
+    .mc-feedback-display-card{background:#fff;border:1.5px solid #ecdad8;border-radius:var(--mc-radius);padding:1.5rem;transition:var(--mc-transition)}
+    .mc-feedback-display-card:hover{box-shadow:var(--mc-shadow);border-color:var(--mc-red-light);transform:translateY(-3px)}
+    .mc-fb-stars{color:var(--mc-gold);font-size:0.95rem}
+    .mc-fb-name{font-weight:700;font-family:'Playfair Display',serif;font-size:1rem}
+    .mc-fb-event-badge{background:#fff0ee;color:var(--mc-red);border-radius:50px;padding:0.2rem 0.75rem;font-size:0.78rem;font-weight:700}
+    .mc-fb-comment{font-size:0.95rem;color:var(--mc-gray);line-height:1.75;font-style:italic}
+    .mc-avg-score{font-family:'Playfair Display',serif;font-size:4rem;font-weight:900;color:var(--mc-dark);line-height:1}
+    .mc-avg-stars{font-size:1.6rem;color:var(--mc-gold)}
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top mc-navbar">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.php">
+        <span class="mc-logo-icon"><i class="bi bi-award-fill"></i></span>
+        <span class="mc-brand-text">Medy's<strong> Catering</strong></span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="services.php">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.php">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link active" href="feedback.php">Feedback</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
+          <li class="nav-item ms-lg-3"><a class="btn mc-btn-outline" href="booking.php">Book Now</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="mc-page-hero">
+    <div class="container">
+      <nav aria-label="breadcrumb" class="mc-breadcrumb mb-3">
+        <a href="index.php">Home</a> / <span>Feedback</span>
+      </nav>
+      <h1 class="animate-fade-up">Share Your <span style="color:var(--mc-gold)">Experience</span></h1>
+      <p class="animate-fade-up delay-1 mt-2">We'd love to hear from you — whether you've attended our events or just experienced our service.</p>
+    </div>
+  </section>
+
+  <section class="py-5 mc-section">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-8">
+          <div class="mc-booking-form-card">
+            <p class="mc-section-pre">Client Feedback</p>
+            <h3 class="mc-section-title mb-1">How Was Your <span class="mc-accent">Experience?</span></h3>
+            <p class="mc-body-text mb-4">Your feedback helps us improve. Anyone is welcome to share — whether you've booked an event or simply experienced our services.</p>
+
+            <div id="feedbackSuccess" class="alert alert-success d-none" role="alert">
+              <i class="bi bi-check-circle-fill me-2"></i>
+              <strong>Thank you for your feedback!</strong> We appreciate you taking the time to share your experience.
+            </div>
+
+            <form id="feedbackForm" novalidate>
+              <h6 class="fw-bold text-danger mb-3 mt-2"><span class="mc-booking-step">1</span> Your Information</h6>
+              <div class="row g-3 mb-4">
+                <div class="col-md-6"><label class="mc-form-label">Full Name *</label><input type="text" name="client_name" class="mc-form-control form-control" placeholder="Your full name" required /></div>
+                <div class="col-md-6"><label class="mc-form-label">Email Address <span class="text-muted fw-normal">(optional)</span></label><input type="email" name="email" class="mc-form-control form-control" placeholder="your@email.com" /></div>
+                <div class="col-md-6"><label class="mc-form-label">Type of Event</label><select name="event_type" class="mc-form-control form-select"><option value="">Select event type...</option><option value="corporate">Corporate Event</option><option value="wedding">Wedding / Reception</option><option value="birthday">Birthday / Debut</option><option value="school">School Activity</option><option value="reunion">Family Reunion</option><option value="other">Other / General</option></select></div>
+                <div class="col-md-6"><label class="mc-form-label">Did you book an event with us?</label><select name="has_booked" class="mc-form-control form-select"><option value="yes">Yes, I booked an event</option><option value="no">No, I experienced the service another way</option><option value="inquired">I inquired / contacted the team</option></select></div>
+              </div>
+
+              <h6 class="fw-bold text-danger mb-3"><span class="mc-booking-step">2</span> Your Rating</h6>
+              <div class="mb-4">
+                <label class="mc-form-label d-block mb-2">Overall Rating *</label>
+                <div class="mc-star-rating" id="starRating">
+                  <input type="radio" id="star5" name="star_rating" value="5" required /><label for="star5" title="5 – Excellent"><i class="bi bi-star-fill"></i></label>
+                  <input type="radio" id="star4" name="star_rating" value="4" /><label for="star4" title="4 – Very Good"><i class="bi bi-star-fill"></i></label>
+                  <input type="radio" id="star3" name="star_rating" value="3" /><label for="star3" title="3 – Good"><i class="bi bi-star-fill"></i></label>
+                  <input type="radio" id="star2" name="star_rating" value="2" /><label for="star2" title="2 – Fair"><i class="bi bi-star-fill"></i></label>
+                  <input type="radio" id="star1" name="star_rating" value="1" /><label for="star1" title="1 – Poor"><i class="bi bi-star-fill"></i></label>
+                </div>
+                <div id="starLabel">Click a star to rate</div>
+              </div>
+
+              <h6 class="fw-bold text-danger mb-3"><span class="mc-booking-step">3</span> Your Comments</h6>
+              <div class="row g-3 mb-4">
+                <div class="col-12"><label class="mc-form-label">Comments / Feedback *</label><textarea name="comments" class="mc-form-control form-control" rows="5" placeholder="Tell us about your experience..." required></textarea></div>
+                <div class="col-12">
+                  <label class="mc-form-label">What did you like the most? <span class="text-muted fw-normal">(optional)</span></label>
+                  <div class="d-flex flex-wrap gap-2 mt-1" id="likedTags">
+                    <button type="button" class="btn btn-sm mc-tag-btn" data-tag="Food Quality">Food Quality</button>
+                    <button type="button" class="btn btn-sm mc-tag-btn" data-tag="Service">Service</button>
+                    <button type="button" class="btn btn-sm mc-tag-btn" data-tag="Venue Setup">Venue Setup</button>
+                    <button type="button" class="btn btn-sm mc-tag-btn" data-tag="Coordination">Coordination</button>
+                    <button type="button" class="btn btn-sm mc-tag-btn" data-tag="Value for Money">Value for Money</button>
+                    <button type="button" class="btn btn-sm mc-tag-btn" data-tag="Staff Friendliness">Staff Friendliness</button>
+                  </div>
+                  <input type="hidden" name="liked_tags" id="likedTagsValue" />
+                </div>
+              </div>
+
+              <button type="submit" class="btn mc-btn-primary btn-lg w-100 py-3">
+                <i class="bi bi-send-fill me-2"></i>Submit Feedback
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="mc-booking-form-card text-center mb-4" style="border-color:var(--mc-red)">
+            <p class="mc-section-pre">Overall Rating</p>
+            <div class="mc-avg-score" id="avgScore">–</div>
+            <div class="mc-avg-stars my-2" id="avgStarsDisplay"><i class="bi bi-star text-secondary"></i><i class="bi bi-star text-secondary"></i><i class="bi bi-star text-secondary"></i><i class="bi bi-star text-secondary"></i><i class="bi bi-star text-secondary"></i></div>
+            <p class="mc-body-text small mb-0" id="totalReviews">Loading reviews...</p>
+          </div>
+          <div class="mc-booking-form-card mb-4" style="background:var(--mc-red-dark);border-color:var(--mc-red-dark)">
+            <i class="bi bi-calendar2-heart-fill text-white" style="font-size:2rem"></i>
+            <h5 class="mc-service-title text-white mt-2 mb-2">Ready to Book?</h5>
+            <p class="text-white-50 small mb-3">Let us create an event you'll want to rave about.</p>
+            <a href="booking.php" class="btn mc-btn-outline w-100">Book Your Event</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 mc-section-alt">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="mc-section-pre">What Clients Say</p>
+        <h2 class="mc-section-title">Recent <span class="mc-accent">Feedback</span></h2>
+      </div>
+      <div class="row g-4" id="feedbackDisplay">
+        <div class="col-12 text-center py-4">
+          <div class="spinner-border text-danger" role="status" style="width:2.5rem;height:2.5rem"><span class="visually-hidden">Loading...</span></div>
+          <p class="mc-body-text mt-3">Loading feedback...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 mc-cta text-center">
+    <div class="container">
+      <h2 class="mc-section-title">Ready to Create Your <span class="mc-accent">Own Memory?</span></h2>
+      <p class="mc-body-text mx-auto mb-4" style="max-width:500px;">Join hundreds of satisfied clients. Book your event with Medy's Catering today.</p>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="booking.php" class="btn mc-btn-primary btn-lg px-5">Book Now</a>
+        <a href="contact.php" class="btn mc-btn-outline-red btn-lg px-5">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mc-footer pt-5 pb-3">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4"><div class="mc-brand-text fs-4 mb-2"><i class="bi bi-award-fill mc-accent me-2"></i>Medy's<strong> Catering</strong></div><p class="text-white-50">Your trusted partner for catering and event management services.</p><div class="d-flex gap-3 mt-3"><a href="https://www.facebook.com/profile.php?id=100047324067100" target="_blank" rel="noopener" class="mc-social-icon"><i class="bi bi-facebook"></i></a><a href="#" class="mc-social-icon"><i class="bi bi-instagram"></i></a><a href="https://m.me/100047324067100" target="_blank" rel="noopener" class="mc-social-icon"><i class="bi bi-messenger"></i></a></div></div>
+        <div class="col-6 col-lg-2"><h6 class="mc-footer-heading">Quick Links</h6><ul class="mc-footer-links"><li><a href="index.php">Home</a></li><li><a href="about.php">About</a></li><li><a href="services.php">Services</a></li><li><a href="gallery.php">Gallery</a></li><li><a href="feedback.php">Feedback</a></li><li><a href="contact.php">Contact</a></li></ul></div>
+        <div class="col-6 col-lg-2"><h6 class="mc-footer-heading">Services</h6><ul class="mc-footer-links"><li><a href="services.php">Corporate Events</a></li><li><a href="services.php">Weddings</a></li><li><a href="services.php">Birthdays</a></li><li><a href="services.php">School Events</a></li><li><a href="services.php">Buffet Catering</a></li></ul></div>
+        <div class="col-lg-4"><h6 class="mc-footer-heading">Contact Us</h6><ul class="mc-footer-links"><li><i class="bi bi-geo-alt-fill mc-accent me-2"></i>Trapiche 2, Tanauan City, Batangas, Philippines, 4232</li><li><i class="bi bi-telephone-fill mc-accent me-2"></i>0999 864 8368</li><li><i class="bi bi-envelope-fill mc-accent me-2"></i>mdavesulabo@yahoo.com</li><li><i class="bi bi-clock-fill mc-accent me-2"></i>Mon–Sat: 8:00 AM – 6:00 PM</li></ul></div>
+      </div>
+      <hr class="mc-footer-hr mt-4" />
+      <p class="text-center text-white-50 small mb-0">&copy; 2025 Medy's Catering. All rights reserved. | Developed for Academic Research – PUP</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/script.js"></script>
+  <script>
+    const EVENT_LABELS = { corporate:'Corporate', wedding:'Wedding', birthday:'Birthday', school:'School', reunion:'Reunion', other:'General', '':'General' };
+
+    function renderStars(rating) {
+      const full = Math.floor(rating), half = rating - full >= 0.5 ? 1 : 0, empty = 5 - full - half;
+      return '<i class="bi bi-star-fill"></i>'.repeat(full) + (half ? '<i class="bi bi-star-half"></i>' : '') + '<i class="bi bi-star"></i>'.repeat(empty);
+    }
+
+    async function loadFeedback() {
+      const grid = document.getElementById('feedbackDisplay');
+      try {
+        const res = await fetch(API + '/feedback/public', { headers: { 'Accept': 'application/json' } });
+        if (!res.ok) throw new Error();
+        const json = await res.json();
+        const items = json.items || [], avg = json.avg_rating != null ? Number(json.avg_rating) : null, total = json.total_count || items.length;
+
+        const avgScoreEl = document.getElementById('avgScore');
+        if (avgScoreEl) { avgScoreEl.textContent = avg !== null ? avg.toFixed(1) : '–'; document.getElementById('avgStarsDisplay').innerHTML = avg !== null ? renderStars(avg) : renderStars(0); }
+        document.getElementById('totalReviews').textContent = total > 0 ? `Based on ${total} client review${total !== 1 ? 's' : ''}` : 'No reviews yet';
+
+        if (!items.length) { grid.innerHTML = '<div class="col-12 text-center py-4"><p class="mc-body-text">No feedback submitted yet. Be the first to share your experience!</p></div>'; return; }
+        grid.innerHTML = items.map(fb => {
+          const eventLabel = EVENT_LABELS[fb.event_type] || (fb.event_type ? fb.event_type : 'General');
+          const comment = fb.comments ? fb.comments.replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
+          const name    = fb.client_name ? fb.client_name.replace(/</g, '&lt;') : 'Anonymous';
+          return `<div class="col-md-6 col-lg-4"><div class="mc-feedback-display-card"><div class="d-flex align-items-center justify-content-between mb-2"><div class="mc-fb-stars">${renderStars(Number(fb.star_rating))}</div><span class="mc-fb-event-badge">${eventLabel}</span></div><p class="mc-fb-comment mb-3">"${comment}"</p><div class="mc-fb-name">${name}</div></div></div>`;
+        }).join('');
+      } catch (err) {
+        grid.innerHTML = '<div class="col-12 text-center py-4"><p class="mc-body-text text-muted">Could not load feedback at this time. Please try again later.</p></div>';
+        document.getElementById('totalReviews').textContent = 'Based on client feedback';
+        document.getElementById('avgScore').textContent = '–';
+      }
+    }
+
+    loadFeedback();
+
+    const successAlert = document.getElementById('feedbackSuccess');
+    if (successAlert) {
+      new MutationObserver(() => { if (!successAlert.classList.contains('d-none')) loadFeedback(); }).observe(successAlert, { attributes:true, attributeFilter:['class'] });
+    }
+
+    const starLabels = { '1':'1 – Poor', '2':'2 – Fair', '3':'3 – Good', '4':'4 – Very Good', '5':'5 – Excellent' };
+    document.querySelectorAll('.mc-star-rating input').forEach(input => {
+      input.addEventListener('change', () => { const lbl = document.getElementById('starLabel'); lbl.textContent = starLabels[input.value] || ''; lbl.style.color = 'var(--mc-red)'; });
+    });
+
+    const tagBtns = document.querySelectorAll('.mc-tag-btn'), tagInput = document.getElementById('likedTagsValue'), selectedTags = new Set();
+    tagBtns.forEach(btn => {
+      btn.style.cssText = 'border:1.5px solid var(--mc-red);color:var(--mc-red);border-radius:50px;background:transparent;font-size:0.82rem;font-weight:700;padding:0.3rem 0.9rem;transition:all 0.2s;';
+      btn.addEventListener('click', () => {
+        const tag = btn.dataset.tag;
+        if (selectedTags.has(tag)) { selectedTags.delete(tag); btn.style.background = 'transparent'; btn.style.color = 'var(--mc-red)'; }
+        else { selectedTags.add(tag); btn.style.background = 'var(--mc-red)'; btn.style.color = '#fff'; }
+        tagInput.value = [...selectedTags].join(', ');
+      });
+    });
+  </script>
+</body>
+</html>

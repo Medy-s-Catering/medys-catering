@@ -1,0 +1,14 @@
+Options -Indexes
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /medysBook/
+
+  # Redirect old .html pages to .php
+  RewriteRule ^([^/]+)\.html$               $1.php                    [R=301,L]
+
+  # API routing – strip extensions so JS URLs stay clean
+  RewriteRule ^api/feedback/public/?$        api/feedback.php?public=1 [L,QSA]
+  RewriteRule ^api/feedback/?$               api/feedback.php          [L,QSA]
+  RewriteRule ^api/bookings/?$               api/bookings.php          [L,QSA]
+  RewriteRule ^api/contact/?$                api/contact.php           [L,QSA]
+</IfModule>

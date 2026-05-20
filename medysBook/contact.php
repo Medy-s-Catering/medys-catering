@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact – Medy's Catering</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top mc-navbar">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.php">
+        <span class="mc-logo-icon"><i class="bi bi-award-fill"></i></span>
+        <span class="mc-brand-text">Medy's<strong> Catering</strong></span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="services.php">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.php">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="feedback.php">Feedback</a></li>
+          <li class="nav-item"><a class="nav-link active" href="contact.php">Contact</a></li>
+          <li class="nav-item ms-lg-3"><a class="btn mc-btn-outline" href="booking.php">Book Now</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="mc-page-hero">
+    <div class="container">
+      <nav aria-label="breadcrumb" class="mc-breadcrumb mb-3">
+        <a href="index.php">Home</a> / <span>Contact</span>
+      </nav>
+      <h1 class="animate-fade-up">Get in <span style="color:var(--mc-gold)">Touch</span></h1>
+      <p class="animate-fade-up delay-1 mt-2">We'd love to hear about your upcoming event. Reach out to us anytime.</p>
+    </div>
+  </section>
+
+  <section class="py-5 mc-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <p class="mc-section-pre">Reach Us</p>
+          <h2 class="mc-section-title">Contact <span class="mc-accent">Information</span></h2>
+          <p class="mc-body-text mb-4">Feel free to call, email, or message us. Our team is available during business hours to assist with your inquiries and event bookings.</p>
+          <div class="mc-contact-info-box"><div class="mc-contact-icon-wrap"><i class="bi bi-geo-alt-fill"></i></div><div><h6 class="fw-bold mb-1">Our Address</h6><p class="mc-body-text mb-0">Trapiche 2, Tanauan City, Batangas, Tanauan, Philippines, 4232</p></div></div>
+          <div class="mc-contact-info-box"><div class="mc-contact-icon-wrap"><i class="bi bi-telephone-fill"></i></div><div><h6 class="fw-bold mb-1">Phone Number</h6><p class="mc-body-text mb-0">0999 864 8368</p></div></div>
+          <div class="mc-contact-info-box"><div class="mc-contact-icon-wrap"><i class="bi bi-envelope-fill"></i></div><div><h6 class="fw-bold mb-1">Email Address</h6><p class="mc-body-text mb-0">mdavesulabo@yahoo.com</p></div></div>
+          <div class="mc-contact-info-box"><div class="mc-contact-icon-wrap"><i class="bi bi-clock-fill"></i></div><div><h6 class="fw-bold mb-1">Business Hours</h6><p class="mc-body-text mb-0">Monday – Saturday: 8:00 AM – 6:00 PM<br>Sunday: By appointment only</p></div></div>
+          <div class="mc-contact-info-box"><div class="mc-contact-icon-wrap"><i class="bi bi-facebook"></i></div><div><h6 class="fw-bold mb-1">Facebook Page</h6><p class="mc-body-text mb-0"><a href="https://www.facebook.com/profile.php?id=100047324067100" style="color:var(--mc-red)">Medy's Catering Services</a></p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-0">
+    <div class="container-fluid px-0">
+      <div style="background:#f0e8e6;height:350px;display:flex;align-items:center;justify-content:center;text-align:center;">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3869.7260705339527!2d121.13012147573535!3d14.093341189293211!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd65876182927b%3A0x8ed2c627ff67a68b!2sMedy's%20Catering%20Services!5e0!3m2!1sen!2sph!4v1776768536933!5m2!1sen!2sph" width="80%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 mc-section-alt">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="mc-section-pre">Frequently Asked</p>
+        <h2 class="mc-section-title">Common <span class="mc-accent">Questions</span></h2>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="accordion" id="faqAccordion">
+            <div class="accordion-item border-0 mb-3 rounded-3 overflow-hidden shadow-sm"><h2 class="accordion-header"><button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">How do I book an event with Medy's Catering?</button></h2><div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion"><div class="accordion-body mc-body-text">You can book through our online booking form on this website, call us directly, or send us a message on Facebook. Once we receive your inquiry, our team will contact you to discuss the details and confirm your booking.</div></div></div>
+            <div class="accordion-item border-0 mb-3 rounded-3 overflow-hidden shadow-sm"><h2 class="accordion-header"><button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">How far in advance should I book?</button></h2><div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body mc-body-text">We recommend booking at least 2–4 weeks in advance to ensure availability. For large events like weddings, booking 2–3 months ahead is ideal.</div></div></div>
+            <div class="accordion-item border-0 mb-3 rounded-3 overflow-hidden shadow-sm"><h2 class="accordion-header"><button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">Can I customize the menu?</button></h2><div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body mc-body-text">Absolutely! We offer fully customizable menus to match your event theme, dietary preferences, and budget.</div></div></div>
+            <div class="accordion-item border-0 mb-3 rounded-3 overflow-hidden shadow-sm"><h2 class="accordion-header"><button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">What is your cancellation policy?</button></h2><div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body mc-body-text">Cancellations made 7 or more days before the event date will receive a full refund of any deposit paid. Cancellations within 3–6 days forfeit 50% of the deposit. Cancellations within 48 hours are non-refundable.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mc-footer pt-5 pb-3">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4"><div class="mc-brand-text fs-4 mb-2"><i class="bi bi-award-fill mc-accent me-2"></i>Medy's<strong> Catering</strong></div><p class="text-white-50">Your trusted partner for catering and event management services.</p><div class="d-flex gap-3 mt-3"><a href="https://www.facebook.com/profile.php?id=100047324067100" target="_blank" rel="noopener" class="mc-social-icon"><i class="bi bi-facebook"></i></a><a href="#" class="mc-social-icon"><i class="bi bi-instagram"></i></a><a href="https://m.me/100047324067100" target="_blank" rel="noopener" class="mc-social-icon"><i class="bi bi-messenger"></i></a></div></div>
+        <div class="col-6 col-lg-2"><h6 class="mc-footer-heading">Quick Links</h6><ul class="mc-footer-links"><li><a href="index.php">Home</a></li><li><a href="about.php">About</a></li><li><a href="services.php">Services</a></li><li><a href="gallery.php">Gallery</a></li><li><a href="feedback.php">Feedback</a></li><li><a href="contact.php">Contact</a></li></ul></div>
+        <div class="col-6 col-lg-2"><h6 class="mc-footer-heading">Services</h6><ul class="mc-footer-links"><li><a href="services.php">Corporate Events</a></li><li><a href="services.php">Weddings</a></li><li><a href="services.php">Birthdays</a></li><li><a href="services.php">School Events</a></li><li><a href="services.php">Buffet Catering</a></li></ul></div>
+        <div class="col-lg-4"><h6 class="mc-footer-heading">Contact Us</h6><ul class="mc-footer-links"><li><i class="bi bi-geo-alt-fill mc-accent me-2"></i>Trapiche 2, Tanauan City, Batangas, Philippines, 4232</li><li><i class="bi bi-telephone-fill mc-accent me-2"></i>0999 864 8368</li><li><i class="bi bi-envelope-fill mc-accent me-2"></i>mdavesulabo@yahoo.com</li><li><i class="bi bi-clock-fill mc-accent me-2"></i>Mon–Sat: 8:00 AM – 6:00 PM</li></ul></div>
+      </div>
+      <hr class="mc-footer-hr mt-4" />
+      <p class="text-center text-white-50 small mb-0">&copy; 2025 Medy's Catering. All rights reserved. | Developed for Academic Research &ndash; PUP</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/script.js"></script>
+</body>
+</html>

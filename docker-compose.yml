@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: medys
+      POSTGRES_PASSWORD: medys
+      POSTGRES_DB: medys_catering
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U medys -d medys_catering"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PORT: "80"
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: medys_catering
+      DB_USER: medys
+      DB_PASS: medys
+      APP_DEBUG: "1"
+    ports:
+      - "8080:80"
+    volumes:
+      # Live-edit PHP without rebuilding the image. Comment out for prod-like runs.
+      - ./medysBook:/var/www/html/medysBook
+      - ./medysStaff:/var/www/html/medysStaff
+      - ./index.php:/var/www/html/index.php
+
+volumes:
+  pgdata:

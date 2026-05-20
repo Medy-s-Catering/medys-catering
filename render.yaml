@@ -1,0 +1,26 @@
+# Render Blueprint — provisions Postgres + Dockerized PHP/Apache web service.
+# Apply via: https://dashboard.render.com/blueprints  (or push to a connected repo).
+# After first deploy, run db/init.sql against the database once:
+#   psql "$DATABASE_URL" -f db/init.sql
+# (Render's "Shell" tab on the web service has psql available; or use a local psql.)
+
+databases:
+  - name: medys-catering-db
+    plan: free
+    databaseName: medys_catering
+    user: medys
+
+services:
+  - type: web
+    name: medys-catering
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /medysBook/
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: medys-catering-db
+          property: connectionString
+      - key: APP_DEBUG
+        value: "0"

@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker compose *)",
+      "Bash(xxd \"d:/Projects/medys-catering/docker/entrypoint.sh\")",
+      "Bash(sed -i 's/\\\\r//' \"d:/Projects/medys-catering/docker/entrypoint.sh\" && file \"d:/Projects/medys-catering/docker/entrypoint.sh\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080)",
+      "Bash(docker exec *)",
+      "Bash(docker port *)",
+      "Bash(psql \"postgresql://medys:medys@localhost:5432/medys_catering\" -c \"\\\\l\")",
+      "PowerShell(netstat -ano)",
+      "PowerShell(Get-Process -Id 4968, 14556)",
+      "PowerShell(Get-Process -Id 4968 -ErrorAction SilentlyContinue)",
+      "PowerShell(Get-Process -Id 14556 -ErrorAction SilentlyContinue)"
+    ],
+    "additionalDirectories": [
+      "d:\\Projects\\medys-catering\\docker"
+    ]
+  }
+}

@@ -75,7 +75,7 @@
               <div class="row g-3 mb-4">
                 <div class="col-md-6"><label class="mc-form-label">Type of Event *</label><select name="event_type" class="mc-form-control form-select" required><option value="">Select event type...</option><option value="Corporate Event">Corporate Event</option><option value="Wedding / Reception">Wedding / Reception</option><option value="Birthday / Debut">Birthday / Debut</option><option value="School Activity">School Activity</option><option value="Family Reunion">Family Reunion</option><option value="Other">Other</option></select></div>
                 <div class="col-md-6"><label class="mc-form-label">Package *</label><select name="package" class="mc-form-control form-select" required><option value="">Select package...</option><option value="Basic">Basic Package</option><option value="Standard">Standard Package</option><option value="Premium">Premium Package</option><option value="Custom">Custom Package (discuss with team)</option></select></div>
-                <div class="col-md-6"><label class="mc-form-label">Event Date *</label><input type="date" name="event_date" class="mc-form-control form-control" required /></div>
+                <div class="col-md-6"><label class="mc-form-label">Event Date *</label><input type="date" name="event_date" class="mc-form-control form-control" min="<?php echo date('Y-m-d'); ?>" required /></div>
                 <div class="col-md-6"><label class="mc-form-label">Event Time *</label><input type="time" name="event_time" class="mc-form-control form-control" required /></div>
                 <div class="col-md-6"><label class="mc-form-label">Number of Guests *</label><input type="number" name="guest_count" class="mc-form-control form-control" placeholder="e.g. 100" min="1" required /></div>
                 <div class="col-md-6"><label class="mc-form-label">Event Duration</label><select name="duration" class="mc-form-control form-select"><option value="">Select duration...</option><option>2 hours</option><option>4 hours</option><option>6 hours</option><option>8 hours</option><option>Full day</option></select></div>
@@ -255,6 +255,12 @@
         if (!field.value.trim()) { field.classList.add('is-invalid'); valid = false; }
         else { field.classList.remove('is-invalid'); }
       });
+      const dateField = form.querySelector('[name="event_date"]');
+      if (dateField && dateField.value) {
+        const today = new Date(); today.setHours(0, 0, 0, 0);
+        const selected = new Date(dateField.value + 'T00:00:00');
+        if (selected < today) { dateField.classList.add('is-invalid'); valid = false; }
+      }
       if (!document.getElementById('termsCheck').checked) {
         document.getElementById('termsError').classList.remove('d-none');
         document.querySelector('.mc-terms-box').scrollIntoView({ behavior:'smooth', block:'center' });

@@ -21,6 +21,12 @@ foreach (['client_name', 'email', 'phone', 'event_type', 'event_date', 'event_ti
     }
 }
 
+if ($input['event_date'] < date('Y-m-d')) {
+    http_response_code(422);
+    echo json_encode(['message' => 'Event date cannot be in the past.']);
+    exit;
+}
+
 do {
     $client_id = 'MC-' . date('Ymd') . '-' . strtoupper(substr(bin2hex(random_bytes(2)), 0, 4));
     $dup = $pdo->prepare("SELECT id FROM bookings WHERE client_id = ?");

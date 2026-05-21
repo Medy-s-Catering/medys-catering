@@ -465,6 +465,7 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
       document.getElementById('bookingForm').reset();
       document.getElementById('statusIndicator').classList.add('d-none');
       document.getElementById('saveBtn').disabled = false;
+      document.getElementById('fDate').min = new Date().toISOString().split('T')[0];
       openModal('addBookingModal');
     }
 
@@ -479,6 +480,7 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
       // Populate fields
       document.getElementById('fClient').value          = b.client;
       document.getElementById('fEvent').value           = b.event;
+      document.getElementById('fDate').removeAttribute('min');
       document.getElementById('fDate').value            = b.date;
       document.getElementById('fTime').value            = b.time || '';
       document.getElementById('fGuests').value          = b.guests;
@@ -531,6 +533,15 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
       if (!data.client_name || !data.event_type || !data.event_date || !data.package || !data.venue) {
         showToast('Please fill in all required fields.', 'error');
         return;
+      }
+
+      if (!id) {
+        const today = new Date(); today.setHours(0, 0, 0, 0);
+        const selected = new Date(data.event_date + 'T00:00:00');
+        if (selected < today) {
+          showToast('Event date cannot be in the past.', 'error');
+          return;
+        }
       }
 
       try {

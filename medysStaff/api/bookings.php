@@ -47,6 +47,12 @@ if ($method == 'POST') {
         }
     }
 
+    if ($d['event_date'] < date('Y-m-d')) {
+        http_response_code(422);
+        echo json_encode(['message' => 'Event date cannot be in the past.']);
+        exit;
+    }
+
     // New bookings always start as pending
     $d['status'] = 'pending';
 
@@ -105,6 +111,13 @@ if ($method == 'PUT') {
 
     $currentStatus = $current['status'];
     $newStatus     = $d['status'] ?? $currentStatus;
+
+    // Reject if the date is being changed to a past date
+    if (!empty($d['event_date']) && $d['event_date'] !== $current['event_date'] && $d['event_date'] < date('Y-m-d')) {
+        http_response_code(422);
+        echo json_encode(['message' => 'Event date cannot be in the past.']);
+        exit;
+    }
 
     // Block edits entirely on completed bookings (except status change by admin, handled below)
     if ($currentStatus == 'completed') {

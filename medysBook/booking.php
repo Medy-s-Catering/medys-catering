@@ -125,6 +125,11 @@
             <p class="mc-body-text small mb-3">mdavesulabo@yahoo.com</p>
             <a href="contact.php" class="btn mc-btn-outline-red w-100">Contact Us</a>
           </div>
+          <div class="mc-booking-form-card mb-4" style="background:var(--mc-off-white)">
+            <h5 class="mc-service-title mb-3"><i class="bi bi-credit-card-fill mc-accent me-2"></i>Payment Methods</h5>
+            <p class="mc-body-text small">We accept the following payment methods:</p>
+            <ul class="mc-body-text small ps-3 mb-0"><li>Cash</li><li>Bank Transfer</li><li>GCash</li></ul>
+          </div>
           <div class="mc-booking-form-card" style="border-color:var(--mc-red)">
             <h5 class="mc-service-title mb-3"><i class="bi bi-check-circle mc-accent me-2"></i>Why Book With Us?</h5>
             <ul class="mc-body-text small ps-3"><li class="mb-2">Experienced &amp; professional team</li><li class="mb-2">Customizable packages for any budget</li><li class="mb-2">Real-time event coordination updates</li><li class="mb-2">Quality food &amp; beautiful presentation</li><li class="mb-2">Trusted by 500+ happy clients</li></ul>
@@ -141,7 +146,7 @@
         <div class="col-lg-4"><div class="mc-brand-text fs-4 mb-2"><i class="bi bi-award-fill mc-accent me-2"></i>Medy's<strong> Catering</strong></div><p class="text-white-50">Your trusted partner for catering and event management services.</p><div class="d-flex gap-3 mt-3"><a href="https://www.facebook.com/profile.php?id=100047324067100" target="_blank" rel="noopener" class="mc-social-icon"><i class="bi bi-facebook"></i></a><a href="#" class="mc-social-icon"><i class="bi bi-instagram"></i></a><a href="https://m.me/100047324067100" target="_blank" rel="noopener" class="mc-social-icon"><i class="bi bi-messenger"></i></a></div></div>
         <div class="col-6 col-lg-2"><h6 class="mc-footer-heading">Quick Links</h6><ul class="mc-footer-links"><li><a href="index.php">Home</a></li><li><a href="about.php">About</a></li><li><a href="services.php">Services</a></li><li><a href="gallery.php">Gallery</a></li><li><a href="feedback.php">Feedback</a></li><li><a href="contact.php">Contact</a></li></ul></div>
         <div class="col-6 col-lg-2"><h6 class="mc-footer-heading">Services</h6><ul class="mc-footer-links"><li><a href="services.php">Corporate Events</a></li><li><a href="services.php">Weddings</a></li><li><a href="services.php">Birthdays</a></li><li><a href="services.php">School Events</a></li><li><a href="services.php">Buffet Catering</a></li></ul></div>
-        <div class="col-lg-4"><h6 class="mc-footer-heading">Contact Us</h6><ul class="mc-footer-links"><li><i class="bi bi-geo-alt-fill mc-accent me-2"></i>Trapiche 2, Tanauan City, Batangas, Philippines, 4232</li><li><i class="bi bi-telephone-fill mc-accent me-2"></i>0999 864 8368</li><li><i class="bi bi-envelope-fill mc-accent me-2"></i>mdavesulabo@yahoo.com</li><li><i class="bi bi-clock-fill mc-accent me-2"></i>Mon–Sat: 8:00 AM – 6:00 PM</li></ul></div>
+        <div class="col-lg-4"><h6 class="mc-footer-heading">Contact Us</h6><ul class="mc-footer-links"><li><i class="bi bi-geo-alt-fill mc-accent me-2"></i>Trapiche 2, Tanauan City, Batangas, Philippines, 4232</li><li><i class="bi bi-telephone-fill mc-accent me-2"></i>0999 864 8368</li><li><i class="bi bi-envelope-fill mc-accent me-2"></i>mdavesulabo@yahoo.com</li><li><i class="bi bi-clock-fill mc-accent me-2"></i>Mon–Sat: 8:00 AM – 5:00 PM</li></ul></div>
       </div>
       <hr class="mc-footer-hr mt-4" />
       <p class="text-center text-white-50 small mb-0">&copy; 2025 Medy's Catering. All rights reserved. | Developed for Academic Research &ndash; PUP</p>

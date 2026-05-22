@@ -40,7 +40,7 @@
         <a href="index.php">Home</a> / <span>About</span>
       </nav>
       <h1 class="animate-fade-up">About <span style="color:var(--mc-gold)">Medy's Catering</span></h1>
-      <p class="animate-fade-up delay-1 mt-2">Excellence in catering and event management since 2010</p>
+      <p class="animate-fade-up delay-1 mt-2">Excellence in catering and event management since 2014</p>
     </div>
   </section>
 
@@ -84,7 +84,7 @@
           <p class="mc-section-pre">Why Choose Us</p>
           <h2 class="mc-section-title">The Medy's <span class="mc-accent">Difference</span></h2>
           <p class="mc-body-text mb-4">We don't just provide food and service — we create experiences. Here's what sets us apart:</p>
-          <div class="mc-value-item"><div class="mc-value-icon-wrap"><i class="bi bi-clock-history"></i></div><div><h6 class="fw-bold mb-1">10+ Years of Experience</h6><p class="mc-body-text mb-0">Decades of hands-on experience managing all types of events, big and small.</p></div></div>
+          <div class="mc-value-item"><div class="mc-value-icon-wrap"><i class="bi bi-clock-history"></i></div><div><h6 class="fw-bold mb-1">10+ Years of Experience</h6><p class="mc-body-text mb-0">Over a decade of hands-on experience managing all types of events, big and small.</p></div></div>
           <div class="mc-value-item"><div class="mc-value-icon-wrap"><i class="bi bi-people"></i></div><div><h6 class="fw-bold mb-1">Dedicated Professional Team</h6><p class="mc-body-text mb-0">Our staff are trained, passionate, and committed to every detail of your event.</p></div></div>
           <div class="mc-value-item"><div class="mc-value-icon-wrap"><i class="bi bi-patch-check"></i></div><div><h6 class="fw-bold mb-1">Quality Food &amp; Presentation</h6><p class="mc-body-text mb-0">Fresh ingredients, flavorful recipes, and beautiful food presentation every time.</p></div></div>
           <div class="mc-value-item"><div class="mc-value-icon-wrap"><i class="bi bi-telephone-forward"></i></div><div><h6 class="fw-bold mb-1">Responsive Communication</h6><p class="mc-body-text mb-0">We keep you informed every step of the way — no delays, no guesswork.</p></div></div>
@@ -101,14 +101,11 @@
   <section class="py-5 mc-section-alt">
     <div class="container">
       <div class="text-center mb-5">
-        <p class="mc-section-pre">The People Behind the Magic</p>
-        <h2 class="mc-section-title">Meet the <span class="mc-accent">Team</span></h2>
+        <p class="mc-section-pre">Leadership</p>
+        <h2 class="mc-section-title">Meet the <span class="mc-accent">Owner</span></h2>
       </div>
       <div class="row g-4 justify-content-center">
-        <div class="col-6 col-md-4 col-lg-3"><div class="mc-team-card"><div class="mc-team-avatar"><i class="bi bi-person-fill"></i></div><h6 class="fw-bold mb-1">Medy [Surname]</h6><p class="mc-body-text small mb-0" style="color:var(--mc-red)">Founder &amp; Owner</p></div></div>
-        <div class="col-6 col-md-4 col-lg-3"><div class="mc-team-card"><div class="mc-team-avatar"><i class="bi bi-person-fill"></i></div><h6 class="fw-bold mb-1">[Staff Name]</h6><p class="mc-body-text small mb-0" style="color:var(--mc-red)">Event Coordinator</p></div></div>
-        <div class="col-6 col-md-4 col-lg-3"><div class="mc-team-card"><div class="mc-team-avatar"><i class="bi bi-person-fill"></i></div><h6 class="fw-bold mb-1">[Staff Name]</h6><p class="mc-body-text small mb-0" style="color:var(--mc-red)">Head Chef</p></div></div>
-        <div class="col-6 col-md-4 col-lg-3"><div class="mc-team-card"><div class="mc-team-avatar"><i class="bi bi-person-fill"></i></div><h6 class="fw-bold mb-1">[Staff Name]</h6><p class="mc-body-text small mb-0" style="color:var(--mc-red)">Logistics Staff</p></div></div>
+        <div class="col-6 col-md-4 col-lg-3"><div class="mc-team-card"><div class="mc-team-avatar"><i class="bi bi-person-fill"></i></div><h6 class="fw-bold mb-1">Medina Marfa Sulabo</h6><p class="mc-body-text small mb-0" style="color:var(--mc-red)">Founder &amp; Owner</p></div></div>
       </div>
     </div>
   </section>
@@ -158,7 +155,7 @@
             <li><i class="bi bi-geo-alt-fill mc-accent me-2"></i>Trapiche 2, Tanauan City, Batangas, Philippines, 4232</li>
             <li><i class="bi bi-telephone-fill mc-accent me-2"></i>0999 864 8368</li>
             <li><i class="bi bi-envelope-fill mc-accent me-2"></i>mdavesulabo@yahoo.com</li>
-            <li><i class="bi bi-clock-fill mc-accent me-2"></i>Mon–Sat: 8:00 AM – 6:00 PM</li>
+            <li><i class="bi bi-clock-fill mc-accent me-2"></i>Mon–Sat: 8:00 AM – 5:00 PM</li>
           </ul>
         </div>
       </div>

@@ -30,6 +30,21 @@ $msg        = $status_msg[$status]   ?? '';
 
 function fmt_date($d) { return $d ? date('F j, Y', strtotime($d)) : '—'; }
 function fmt_time($t) { return $t ? date('g:i A', strtotime($t)) : '—'; }
+
+function parse_sr(string $sr): array {
+    $lines = array_filter(array_map('trim', explode("\n", $sr)));
+    $food = ''; $addons = []; $rest = [];
+    foreach ($lines as $line) {
+        if (str_starts_with($line, 'Food Order: ') || preg_match('/^Party Tray \(\d+ Pax\):/', $line)) {
+            $food = $line;
+        } elseif (str_starts_with($line, 'Add-Ons: ')) {
+            $addons = array_values(array_filter(array_map('trim', explode(', ', substr($line, 9)))));
+        } else {
+            $rest[] = $line;
+        }
+    }
+    return ['food' => $food, 'addons' => $addons, 'requests' => trim(implode("\n", $rest))];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -134,8 +149,12 @@ function fmt_time($t) { return $t ? date('g:i A', strtotime($t)) : '—'; }
                 if (!empty($booking['duration'])) {
                     $fields[] = ['bi-stopwatch-fill', 'Duration', htmlspecialchars($booking['duration'])];
                 }
-                if (!empty($booking['special_requests'])) {
-                    $fields[] = ['bi-chat-left-text-fill', 'Special Requests', htmlspecialchars($booking['special_requests'])];
+                $parsed_sr = parse_sr($booking['special_requests'] ?? '');
+                if (!empty($parsed_sr['addons'])) {
+                    $fields[] = ['bi-plus-circle-fill', 'Add-Ons', implode(' &nbsp;·&nbsp; ', array_map('htmlspecialchars', $parsed_sr['addons']))];
+                }
+                if ($parsed_sr['requests'] !== '') {
+                    $fields[] = ['bi-chat-left-text-fill', 'Special Requests', nl2br(htmlspecialchars($parsed_sr['requests']))];
                 }
                 foreach ($fields as [$icon, $label, $value]):
                 ?>
@@ -148,6 +167,34 @@ function fmt_time($t) { return $t ? date('g:i A', strtotime($t)) : '—'; }
                   </div>
                 </div>
                 <?php endforeach; ?>
+
+                <?php if ($parsed_sr['food']): ?>
+                <?php
+                  $food_line = $parsed_sr['food'];
+                  $food_prefix = ''; $food_dishes = '';
+                  if (preg_match('/^(Party Tray \(\d+ Pax\)):\s*(.+)$/', $food_line, $m)) {
+                      $food_prefix = $m[1]; $food_dishes = $m[2];
+                  } elseif (str_starts_with($food_line, 'Food Order: ')) {
+                      $food_dishes = substr($food_line, 12);
+                  }
+                  $dish_list = array_values(array_filter(array_map('trim', explode(', ', $food_dishes))));
+                ?>
+                <div class="col-12">
+                  <div style="background:#fff8f8;border:1.5px solid var(--mc-red);border-radius:10px;padding:0.85rem 1rem;">
+                    <div style="font-size:0.72rem;color:var(--mc-gray);font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.6rem;">
+                      <i class="bi bi-menu-button-wide-fill me-1" style="color:var(--mc-red);"></i>Selected Dishes
+                    </div>
+                    <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+                      <?php if ($food_prefix): ?>
+                        <span style="background:#fee2e2;border:1px solid #fca5a5;border-radius:14px;padding:0.2rem 0.75rem;font-size:0.82rem;font-weight:700;color:var(--mc-red);"><?= htmlspecialchars($food_prefix) ?></span>
+                      <?php endif; ?>
+                      <?php foreach ($dish_list as $dish): ?>
+                        <span style="background:#fff;border:1.5px solid #fca5a5;border-radius:14px;padding:0.2rem 0.75rem;font-size:0.82rem;font-weight:600;color:#374151;"><?= htmlspecialchars($dish) ?></span>
+                      <?php endforeach; ?>
+                    </div>
+                  </div>
+                </div>
+                <?php endif; ?>
               </div>
 
               <!-- Footer note -->

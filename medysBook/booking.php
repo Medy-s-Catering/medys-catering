@@ -267,6 +267,8 @@
             <div class="mc-confirm-row"><span class="mc-confirm-label"><i class="bi bi-telephone-fill me-2" style="color:var(--mc-red)"></i>Phone</span><span class="mc-confirm-value" id="cs-phone">—</span></div>
             <div class="mc-confirm-row"><span class="mc-confirm-label"><i class="bi bi-tag-fill me-2" style="color:var(--mc-red)"></i>Event Type</span><span class="mc-confirm-value" id="cs-event">—</span></div>
             <div class="mc-confirm-row"><span class="mc-confirm-label"><i class="bi bi-box-seam-fill me-2" style="color:var(--mc-red)"></i>Package</span><span class="mc-confirm-value" id="cs-package">—</span></div>
+            <div class="mc-confirm-row d-none" id="cs-dishes-row" style="flex-wrap:wrap;gap:0.5rem;"><span class="mc-confirm-label" style="width:100%;"><i class="bi bi-menu-button-wide-fill me-2" style="color:var(--mc-red)"></i>Selected Dishes</span><div id="cs-dishes" style="display:flex;flex-wrap:wrap;gap:0.3rem;padding-left:0.25rem;"></div></div>
+            <div class="mc-confirm-row d-none" id="cs-addons-row"><span class="mc-confirm-label"><i class="bi bi-plus-circle-fill me-2" style="color:var(--mc-red)"></i>Add-Ons</span><span class="mc-confirm-value" id="cs-addons">—</span></div>
             <div class="mc-confirm-row"><span class="mc-confirm-label"><i class="bi bi-calendar3 me-2" style="color:var(--mc-red)"></i>Date</span><span class="mc-confirm-value" id="cs-date">—</span></div>
             <div class="mc-confirm-row"><span class="mc-confirm-label"><i class="bi bi-clock-fill me-2" style="color:var(--mc-red)"></i>Time</span><span class="mc-confirm-value" id="cs-time">—</span></div>
             <div class="mc-confirm-row"><span class="mc-confirm-label"><i class="bi bi-people-fill me-2" style="color:var(--mc-red)"></i>Guests</span><span class="mc-confirm-value" id="cs-guests">—</span></div>
@@ -403,6 +405,35 @@
       document.getElementById('cs-time').textContent = formatTime(fd.get('event_time'));
       document.getElementById('cs-guests').textContent = fd.get('guest_count') + ' guests';
       document.getElementById('cs-venue').textContent = fd.get('venue') || '—';
+
+      // Dishes
+      const food    = fd.get('food_selections') || '';
+      const trayPax = fd.get('tray_pax') || '';
+      const pkg     = fd.get('package') || '';
+      const dishRow = document.getElementById('cs-dishes-row');
+      const dishEl  = document.getElementById('cs-dishes');
+      if (food) {
+        const prefix = (pkg === 'Party Tray' && trayPax)
+          ? `<span style="background:#fee2e2;border:1px solid #fca5a5;border-radius:12px;padding:0.15rem 0.6rem;font-size:0.79rem;font-weight:700;color:var(--mc-red);">${trayPax} Pax</span>`
+          : '';
+        const chips = food.split(', ').filter(Boolean).map(d =>
+          `<span style="background:#fff0f0;border:1px solid #fca5a5;border-radius:12px;padding:0.15rem 0.6rem;font-size:0.79rem;font-weight:600;color:#374151;">${d}</span>`
+        ).join('');
+        dishEl.innerHTML = prefix + chips;
+        dishRow.classList.remove('d-none');
+      } else {
+        dishRow.classList.add('d-none');
+      }
+
+      // Add-Ons
+      const addOns    = fd.get('add_ons') || '';
+      const addOnRow  = document.getElementById('cs-addons-row');
+      if (addOns) {
+        document.getElementById('cs-addons').textContent = addOns;
+        addOnRow.classList.remove('d-none');
+      } else {
+        addOnRow.classList.add('d-none');
+      }
       new bootstrap.Modal(document.getElementById('confirmModal')).show();
     }
     function submitBookingForm() {
@@ -458,8 +489,31 @@
     };
 
     let _activeFoodCat = 'beef';
-    const PROTEIN_PACKAGES = ['Package A', 'Package B', 'Package C'];
-    const PROTEIN_LIMIT = 2; // per category (beef, pork)
+
+    const PKG_FOOD_CONFIG = {
+      'Package A': {
+        tabs:      ['beef','pork','chicken','seafood','pasta','veggies','dessert'],
+        catLimits: { beef:1, pork:1, dessert:1 },
+        groups:    [
+          { cats:['chicken','seafood'], limit:1, label:'Chicken / Fish' },
+          { cats:['pasta','veggies'],   limit:1, label:'Pasta / Noodles / Veggies' }
+        ],
+        title: 'Pick Your Dishes — 1 Beef • 1 Pork • 1 Chicken/Fish • 1 Pasta/Veggies • 1 Dessert'
+      },
+      'Package B': {
+        tabs:      ['beef','pork','chicken','seafood','pasta','veggies','dessert'],
+        catLimits: { beef:1, pork:1, pasta:1, veggies:1, dessert:1 },
+        groups:    [
+          { cats:['chicken','seafood'], limit:1, label:'Chicken / Fish' }
+        ],
+        title: 'Pick Your Dishes — 1 Beef • 1 Pork • 1 Chicken/Fish • 1 Pasta • 1 Veggies • 1 Dessert'
+      },
+      'Package C': {
+        tabs:      ['beef','pork','chicken','seafood','pasta','veggies','dessert'],
+        catLimits: { beef:1, pork:1, chicken:1, seafood:1, pasta:1, veggies:1, dessert:2 },
+        title: 'Pick Your Dishes — 1 Beef • 1 Pork • 1 Fish • 1 Chicken • 1 Pasta • 1 Veggies • 2 Desserts'
+      }
+    };
 
     function getFoodSelections() {
       const v = document.getElementById('foodSelectionsHidden')?.value || '';
@@ -475,9 +529,9 @@
       const panel   = document.getElementById('foodSelectionPanel');
       const trayRow = document.getElementById('trayPaxRow');
       const title   = document.getElementById('foodPanelTitle');
-      const isPkg   = PROTEIN_PACKAGES.includes(pkg);
+      const cfg     = PKG_FOOD_CONFIG[pkg];
 
-      if (!pkg || (!isPkg && pkg !== 'Food Only' && pkg !== 'Party Tray')) {
+      if (!pkg || (!cfg && pkg !== 'Food Only' && pkg !== 'Party Tray')) {
         panel.classList.add('d-none');
         clearFoodSelections();
         return;
@@ -486,15 +540,14 @@
       panel.classList.remove('d-none');
       trayRow.classList.toggle('d-none', pkg !== 'Party Tray');
 
-      // Show correct category tabs
       document.querySelectorAll('#foodCatTabs button').forEach(btn => {
-        const cat = btn.dataset.fcat;
-        btn.style.display = isPkg ? (cat === 'beef' || cat === 'pork' ? '' : 'none') : '';
+        btn.style.display = cfg ? (cfg.tabs.includes(btn.dataset.fcat) ? '' : 'none') : '';
       });
 
-      if (isPkg) {
-        title.textContent = 'Choose Your Protein Dishes (2 Beef + 2 Pork)';
-        if (!['beef','pork'].includes(_activeFoodCat)) _activeFoodCat = 'beef';
+      if (cfg && !cfg.tabs.includes(_activeFoodCat)) _activeFoodCat = cfg.tabs[0] || 'beef';
+
+      if (cfg) {
+        title.textContent = cfg.title;
       } else if (pkg === 'Party Tray') {
         title.textContent = 'Select Your Party Tray Items';
       } else {
@@ -508,27 +561,46 @@
 
       document.querySelectorAll('#foodCatTabs button').forEach(b => {
         if (b.style.display === 'none') return;
-        b.classList.toggle('mc-btn-primary',    b.dataset.fcat === cat);
+        b.classList.toggle('mc-btn-primary',     b.dataset.fcat === cat);
         b.classList.toggle('mc-btn-outline-red', b.dataset.fcat !== cat);
       });
 
-      const pkg    = document.getElementById('packageField')?.value;
-      const isPkg  = PROTEIN_PACKAGES.includes(pkg);
-      const pax    = document.querySelector('input[name="tray_pax"]:checked')?.value;
-      const price  = (pkg === 'Party Tray' && pax) ? (TRAY_PRICES[pax]?.[cat] || null) : null;
+      const pkg  = document.getElementById('packageField')?.value;
+      const cfg  = PKG_FOOD_CONFIG[pkg];
+      const pax  = document.querySelector('input[name="tray_pax"]:checked')?.value;
+      const price = (pkg === 'Party Tray' && pax) ? (TRAY_PRICES[pax]?.[cat] || null) : null;
 
-      const allSelected   = new Set(getFoodSelections());
-      const catItems      = MENU_ITEMS[cat] || [];
-      const checkedInCat  = catItems.filter(i => allSelected.has(i));
-      const limitReached  = isPkg && checkedInCat.length >= PROTEIN_LIMIT;
+      const allSelected  = new Set(getFoodSelections());
+      const catItems     = MENU_ITEMS[cat] || [];
+      const checkedInCat = catItems.filter(i => allSelected.has(i));
+
+      let limitReached = false;
+      let counterMsg   = '';
+
+      if (cfg) {
+        const group = (cfg.groups || []).find(g => g.cats.includes(cat));
+        if (group) {
+          const groupCount = group.cats.reduce((sum, c) =>
+            sum + (MENU_ITEMS[c] || []).filter(i => allSelected.has(i)).length, 0);
+          limitReached = groupCount >= group.limit;
+          const remaining = group.limit - groupCount;
+          counterMsg = remaining > 0
+            ? `${group.label}: ${groupCount}/${group.limit} — choose ${remaining} more from this group`
+            : `${group.label}: ${group.limit}/${group.limit} selected ✓`;
+        } else if (cfg.catLimits?.[cat] !== undefined) {
+          const catLimit = cfg.catLimits[cat];
+          limitReached   = checkedInCat.length >= catLimit;
+          const remaining = catLimit - checkedInCat.length;
+          counterMsg = remaining > 0
+            ? `${checkedInCat.length}/${catLimit} selected — choose ${remaining} more`
+            : `${catLimit}/${catLimit} selected ✓`;
+        }
+      }
 
       let html = '';
-      if (isPkg) {
-        const remaining = PROTEIN_LIMIT - checkedInCat.length;
+      if (counterMsg) {
         const color = limitReached ? 'var(--mc-red)' : '#6b7280';
-        html += `<div class="col-12 mb-1"><small style="font-weight:700;color:${color};">
-          ${checkedInCat.length}/${PROTEIN_LIMIT} selected${remaining > 0 ? ` — choose ${remaining} more` : ' ✓ limit reached'}
-        </small></div>`;
+        html += `<div class="col-12 mb-1"><small style="font-weight:700;color:${color};">${counterMsg}</small></div>`;
       }
 
       html += catItems.map(item => {

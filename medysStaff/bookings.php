@@ -162,6 +162,7 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
         <form id="bookingForm">
           <input type="hidden" id="editId" />
           <input type="hidden" id="currentStatus" value="pending" />
+          <input type="hidden" id="fFoodOrder" />
 
           <!-- Status indicator (edit mode only) -->
           <div id="statusIndicator" class="d-none mb-3">
@@ -496,8 +497,20 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
         ['Decoration', b.decoration || '—'], ['Theme', b.theme || '—'],
       ];
       const vParsed = parseSpecialRequests(b.special_requests);
-      if (vParsed.food) fields.push(['Food Order', vParsed.food]);
-      if (vParsed.addons.length) fields.push(['Add-Ons', vParsed.addons.join(', ')]);
+      if (vParsed.food) {
+        const fl = vParsed.food;
+        let prefix = '', dishes = '';
+        const tm = fl.match(/^(Party Tray \(\d+ Pax\)):\s*(.+)$/);
+        if (tm) { prefix = tm[1]; dishes = tm[2]; }
+        else if (fl.startsWith('Food Order: ')) { dishes = fl.slice(12); }
+        const chips = [
+          prefix ? `<span style="background:#fee2e2;border:1px solid #fca5a5;border-radius:10px;padding:0.15rem 0.6rem;font-size:0.8rem;font-weight:700;color:#c0392b;">${prefix}</span>` : '',
+          ...dishes.split(', ').filter(Boolean).map(d =>
+            `<span style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:0.15rem 0.6rem;font-size:0.8rem;font-weight:600;">${d.trim()}</span>`)
+        ].filter(Boolean).join(' ');
+        fields.push(['Selected Dishes', `<div style="display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.2rem;">${chips}</div>`]);
+      }
+      if (vParsed.addons.length) fields.push(['Add-Ons', vParsed.addons.join(' · ')]);
       fields.push(['Special Requests', vParsed.requests || '—']);
       document.getElementById('viewModalBody').innerHTML = `
         <div style="display:grid;gap:1rem;">
@@ -524,6 +537,7 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
       document.getElementById('statusIndicator').classList.add('d-none');
       document.getElementById('saveBtn').disabled = false;
       document.getElementById('fDate').min = new Date().toISOString().split('T')[0];
+      document.getElementById('fFoodOrder').value = '';
       document.querySelectorAll('.staff-addon-cb').forEach(cb => cb.checked = false);
       openModal('addBookingModal');
     }
@@ -551,6 +565,7 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
       document.getElementById('fDecoration').value      = b.decoration || 'no';
       document.getElementById('fTheme').value           = b.theme || '';
       const parsed = parseSpecialRequests(b.special_requests);
+      document.getElementById('fFoodOrder').value      = parsed.food;
       document.getElementById('fSpecialRequests').value = parsed.requests;
       document.querySelectorAll('.staff-addon-cb').forEach(cb => {
         cb.checked = parsed.addons.includes(cb.value);
@@ -590,6 +605,7 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
         decoration:       document.getElementById('fDecoration').value,
         theme:            document.getElementById('fTheme').value.trim() || null,
         special_requests: buildSpecialRequests(
+          document.getElementById('fFoodOrder').value.trim(),
           Array.from(document.querySelectorAll('.staff-addon-cb:checked')).map(c => c.value),
           document.getElementById('fSpecialRequests').value.trim()
         ),
@@ -724,11 +740,13 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
       return { food, addons, requests: rest.join('\n').trim() };
     }
 
-    function buildSpecialRequests(addonsList, requestsText) {
+    function buildSpecialRequests(foodLine, addonsList, requestsText) {
+      const parts = [];
+      if (foodLine) parts.push(foodLine);
       const addons = addonsList.filter(Boolean).join(', ');
-      if (addons && requestsText) return `Add-Ons: ${addons}\n${requestsText}`;
-      if (addons) return `Add-Ons: ${addons}`;
-      return requestsText || null;
+      if (addons) parts.push('Add-Ons: ' + addons);
+      if (requestsText) parts.push(requestsText);
+      return parts.join('\n') || null;
     }
 
     // ── DELETE ────────────────────────────────────────────────────────────────

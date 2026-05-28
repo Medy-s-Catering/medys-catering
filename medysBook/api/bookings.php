@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 
 require __DIR__ . '/../config/db.php';
 
+
 $input = json_decode(file_get_contents('php://input'), true) ?? [];
 
 foreach (['client_name', 'email', 'phone', 'event_type', 'event_date', 'event_time', 'guest_count', 'package', 'venue'] as $f) {
@@ -21,9 +22,38 @@ foreach (['client_name', 'email', 'phone', 'event_type', 'event_date', 'event_ti
     }
 }
 
-if ($input['event_date'] < date('Y-m-d')) {
+$event_date  = $input['event_date'];
+$guest_count = (int) $input['guest_count'];
+$package     = $input['package'];
+
+if ($event_date < date('Y-m-d')) {
     http_response_code(422);
     echo json_encode(['message' => 'Event date cannot be in the past.']);
+    exit;
+}
+
+if ($package === 'Food Only') {
+    $min_days = 2;
+    $min_msg  = 'Food-only orders must be booked at least 2 days before the event.';
+} elseif ($guest_count >= 150) {
+    $min_days = 7;
+    $min_msg  = 'Events with 150 or more guests must be booked at least 1 week (7 days) before the event.';
+} else {
+    $min_days = 3;
+    $min_msg  = 'Bookings must be made at least 3 days before the event date.';
+}
+
+if ($event_date < date('Y-m-d', strtotime("+{$min_days} days"))) {
+    http_response_code(422);
+    echo json_encode(['message' => $min_msg]);
+    exit;
+}
+
+$dateCheck = $pdo->prepare("SELECT COUNT(*) FROM bookings WHERE event_date = ? AND status != 'cancelled'");
+$dateCheck->execute([$event_date]);
+if ((int) $dateCheck->fetchColumn() >= 2) {
+    http_response_code(422);
+    echo json_encode(['message' => 'Sorry, we are fully booked on that date. Please choose a different date.']);
     exit;
 }
 
@@ -57,5 +87,12 @@ $stmt->execute([
     $input['referral']         ?? null,
 ]);
 
+$scheme      = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$receipt_url = $scheme . '://' . $_SERVER['HTTP_HOST'] . '/medysBook/booking-receipt.php?id=' . urlencode($client_id);
+
 http_response_code(201);
-echo json_encode(['message' => 'Booking submitted successfully.', 'client_id' => $client_id]);
+echo json_encode([
+    'message'     => 'Booking submitted successfully.',
+    'client_id'   => $client_id,
+    'receipt_url' => $receipt_url,
+]);

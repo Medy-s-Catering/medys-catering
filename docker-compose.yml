@@ -30,7 +30,7 @@ services:
       DB_NAME: medys_catering
       DB_USER: medys
       DB_PASS: medys
-      APP_DEBUG: "1"
+      APP_DEBUG: "${APP_DEBUG:-1}"
     ports:
       - "8080:80"
     volumes:

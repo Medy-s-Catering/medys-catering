@@ -119,6 +119,17 @@ if ($method == 'PUT') {
         exit;
     }
 
+    // Check max 2 bookings per day when the date is being changed
+    if (!empty($d['event_date']) && $d['event_date'] !== $current['event_date']) {
+        $dateCheck = $pdo->prepare("SELECT COUNT(*) FROM bookings WHERE event_date = ? AND status != 'cancelled' AND id != ?");
+        $dateCheck->execute([$d['event_date'], $id]);
+        if ((int) $dateCheck->fetchColumn() >= 2) {
+            http_response_code(422);
+            echo json_encode(['message' => 'Sorry, we are fully booked on that date. Please choose a different date.']);
+            exit;
+        }
+    }
+
     // Block edits entirely on completed bookings (except status change by admin, handled below)
     if ($currentStatus == 'completed') {
         http_response_code(422);

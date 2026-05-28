@@ -106,6 +106,7 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
                 <option value="Basic">Basic</option>
                 <option value="Standard">Standard</option>
                 <option value="Premium">Premium</option>
+                <option value="Food Only">Food Only</option>
               </select>
             </div>
             <div class="col-md-2">
@@ -203,6 +204,7 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
                 <option>Standard</option>
                 <option>Premium</option>
                 <option>Custom</option>
+                <option>Food Only</option>
               </select>
             </div>
             <div class="col-12">
@@ -264,6 +266,39 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
       <div class="mc-modal-body" id="viewModalBody"></div>
       <div class="mc-modal-footer">
         <button class="btn-mc-ghost" onclick="closeModal('viewModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REOPEN BOOKING MODAL -->
+  <div class="mc-modal-overlay" id="reopenModal">
+    <div class="mc-modal" style="max-width:480px;">
+      <div class="mc-modal-header">
+        <h5 style="font-family:'Playfair Display',serif;margin:0;"><i class="bi bi-arrow-counterclockwise" style="color:#d97706;margin-right:0.4rem;"></i>Reopen Booking</h5>
+        <button class="btn-mc-icon" onclick="closeModal('reopenModal')"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <div class="mc-modal-body">
+        <div style="background:#fffbeb;border:1.5px solid #fcd34d;border-radius:10px;padding:0.9rem 1.1rem;display:flex;gap:0.75rem;align-items:flex-start;margin-bottom:1rem;">
+          <i class="bi bi-exclamation-triangle-fill" style="color:#d97706;font-size:1.1rem;flex-shrink:0;margin-top:0.1rem;"></i>
+          <div>
+            <div style="font-weight:700;color:#92400e;margin-bottom:0.25rem;">Event Date Has Passed</div>
+            <div style="font-size:0.85rem;color:#78350f;" id="reopenWarningText"></div>
+          </div>
+        </div>
+        <div id="reopenBookingInfo" style="background:var(--mc-bg);border-radius:10px;padding:0.9rem 1.1rem;font-size:0.87rem;margin-bottom:1rem;"></div>
+        <div>
+          <label class="mc-label">New Event Date *</label>
+          <input type="date" id="reopenNewDate" class="mc-input" required />
+          <div style="font-size:0.78rem;color:var(--mc-gray);margin-top:0.4rem;">
+            <i class="bi bi-info-circle me-1"></i>Set an upcoming date to reopen this booking as <strong>Pending</strong>. You can edit all other details afterward.
+          </div>
+        </div>
+      </div>
+      <div class="mc-modal-footer">
+        <button class="btn-mc-ghost" onclick="closeModal('reopenModal')">Cancel</button>
+        <button class="btn-mc-primary" onclick="submitReopen()" style="background:#d97706;border-color:#d97706;">
+          <i class="bi bi-arrow-counterclockwise"></i> Reopen Booking
+        </button>
       </div>
     </div>
   </div>
@@ -359,7 +394,7 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
 
       // Reopen button
       if (flow.reopen) {
-        btns.push(`<button class="mc-action-btn reopen" onclick="changeStatus(${b.id},'pending')"><i class="bi bi-arrow-counterclockwise"></i>Reopen</button>`);
+        btns.push(`<button class="mc-action-btn reopen" onclick="reopenBooking(${b.id})"><i class="bi bi-arrow-counterclockwise"></i>Reopen</button>`);
       }
 
       return btns.length
@@ -557,6 +592,91 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
         renderTable(applyFilters());
       } catch (e) {
         showToast(e.message || 'Failed to save booking.', 'error');
+      }
+    }
+
+    // ── REOPEN ────────────────────────────────────────────────────────────────
+    let _reopenBookingId = null;
+
+    function reopenBooking(id) {
+      const b = MC_DATA.bookings.find(x => x.id == id);
+      if (!b) return;
+
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const eventDate = new Date(b.date + 'T00:00:00');
+
+      if (eventDate >= today) {
+        // Date is still valid — just do a simple reopen
+        changeStatus(id, 'pending');
+        return;
+      }
+
+      // Event date is in the past — show the reopen modal
+      _reopenBookingId = id;
+
+      document.getElementById('reopenWarningText').textContent =
+        `This booking's original event date (${fmtDate(b.date)}) has already passed. Please set a new date to reopen it.`;
+
+      document.getElementById('reopenBookingInfo').innerHTML = `
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
+          <div><div style="font-size:0.72rem;color:var(--mc-gray);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Client</div><div style="font-weight:600;">${b.client}</div></div>
+          <div><div style="font-size:0.72rem;color:var(--mc-gray);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Event Type</div><div style="font-weight:600;">${b.event}</div></div>
+          <div><div style="font-size:0.72rem;color:var(--mc-gray);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Package</div><div style="font-weight:600;">${b.package}</div></div>
+          <div><div style="font-size:0.72rem;color:var(--mc-gray);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Guests</div><div style="font-weight:600;">${b.guests}</div></div>
+          <div style="grid-column:1/-1;"><div style="font-size:0.72rem;color:var(--mc-gray);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Venue</div><div style="font-weight:600;">${b.venue}</div></div>
+        </div>`;
+
+      const minDate = new Date(today);
+      document.getElementById('reopenNewDate').min = minDate.toISOString().split('T')[0];
+      document.getElementById('reopenNewDate').value = '';
+
+      openModal('reopenModal');
+    }
+
+    async function submitReopen() {
+      const id = _reopenBookingId;
+      const b = MC_DATA.bookings.find(x => x.id == id);
+      if (!b) return;
+
+      const newDate = document.getElementById('reopenNewDate').value;
+      if (!newDate) {
+        showToast('Please select a new event date.', 'error');
+        return;
+      }
+
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const selected = new Date(newDate + 'T00:00:00');
+      if (selected < today) {
+        showToast('The new event date must be today or in the future.', 'error');
+        return;
+      }
+
+      try {
+        await apiRequest('/bookings/' + id, {
+          method: 'PUT',
+          body: JSON.stringify({
+            client_name:      b.client,
+            email:            b.email,
+            phone:            b.phone,
+            event_type:       b.event,
+            event_date:       newDate,
+            event_time:       b.time || null,
+            guest_count:      b.guests,
+            package:          b.package,
+            venue:            b.venue,
+            status:           'pending',
+            duration:         b.duration || null,
+            decoration:       b.decoration || 'no',
+            theme:            b.theme || null,
+            special_requests: b.special_requests || null,
+          }),
+        });
+        await loadPageData();
+        closeModal('reopenModal');
+        renderTable(applyFilters());
+        showToast('Booking reopened with new date!');
+      } catch (e) {
+        showToast(e.message || 'Failed to reopen booking.', 'error');
       }
     }
 

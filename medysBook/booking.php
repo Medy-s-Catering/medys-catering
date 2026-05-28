@@ -54,11 +54,23 @@
             <h3 class="mc-section-title mb-1">Event <span class="mc-accent">Details</span></h3>
             <p class="mc-body-text mb-4">Please provide the information below. Fields marked with * are required.</p>
 
-            <div id="bookingSuccess" class="alert alert-success d-none" role="alert">
-              <i class="bi bi-check-circle-fill me-2"></i>
-              <strong>Booking Request Submitted!</strong> Our team will contact you within 24 hours to confirm your booking. Thank you!
-              <div id="bookingClientIdBox" class="mt-2 d-none" style="background:rgba(255,255,255,0.6);border-radius:8px;padding:0.5rem 0.75rem;font-size:0.9rem;">
-                Your Client ID: <strong id="bookingClientIdValue" style="letter-spacing:0.05em;"></strong> — please save this for your reference.
+            <div id="bookingSuccess" class="d-none" role="alert" style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:14px;padding:1.5rem;">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <i class="bi bi-check-circle-fill" style="color:#16a34a;font-size:1.3rem;"></i>
+                <strong style="font-size:1.05rem;">Booking Request Submitted!</strong>
+              </div>
+              <p class="mc-body-text mb-3">Our team will contact you within 24 hours to confirm your booking. Please screenshot your QR code below as your booking receipt.</p>
+              <div id="bookingClientIdBox" class="d-none mb-3" style="background:rgba(255,255,255,0.7);border-radius:8px;padding:0.6rem 0.9rem;font-size:0.9rem;">
+                Your Client ID: <strong id="bookingClientIdValue" style="letter-spacing:0.08em;color:#16a34a;font-size:1rem;"></strong> — keep this for reference.
+              </div>
+              <div id="bookingQrBox" class="d-none text-center" style="background:#fff;border-radius:12px;padding:1.2rem;border:1.5px solid #d1fae5;">
+                <p class="mc-body-text small mb-2"><i class="bi bi-qr-code me-1"></i>Your Booking QR Code — screenshot or download this as your receipt.</p>
+                <img id="bookingQrImage" src="" alt="Booking QR Code" style="width:220px;height:220px;border:3px solid #8B1A1A;border-radius:8px;padding:6px;" />
+                <div class="mt-2">
+                  <a id="bookingQrDownload" href="#" target="_blank" class="btn mc-btn-outline-red btn-sm mt-1">
+                    <i class="bi bi-download me-1"></i>Download QR
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -74,10 +86,10 @@
               <h6 class="fw-bold text-danger mb-3"><span class="mc-booking-step">2</span> Event Details</h6>
               <div class="row g-3 mb-4">
                 <div class="col-md-6"><label class="mc-form-label">Type of Event *</label><select name="event_type" class="mc-form-control form-select" required><option value="">Select event type...</option><option value="Corporate Event">Corporate Event</option><option value="Wedding / Reception">Wedding / Reception</option><option value="Birthday / Debut">Birthday / Debut</option><option value="School Activity">School Activity</option><option value="Family Reunion">Family Reunion</option><option value="Other">Other</option></select></div>
-                <div class="col-md-6"><label class="mc-form-label">Package *</label><select name="package" class="mc-form-control form-select" required><option value="">Select package...</option><option value="Basic">Basic Package</option><option value="Standard">Standard Package</option><option value="Premium">Premium Package</option><option value="Custom">Custom Package (discuss with team)</option></select></div>
-                <div class="col-md-6"><label class="mc-form-label">Event Date *</label><input type="date" name="event_date" class="mc-form-control form-control" min="<?php echo date('Y-m-d'); ?>" required /></div>
+                <div class="col-md-6"><label class="mc-form-label">Package *</label><select name="package" id="packageField" class="mc-form-control form-select" required><option value="">Select package...</option><option value="Basic">Basic Package</option><option value="Standard">Standard Package</option><option value="Premium">Premium Package</option><option value="Custom">Custom Package (discuss with team)</option><option value="Food Only">Food Only (Catering Only)</option></select></div>
+                <div class="col-md-6"><label class="mc-form-label">Event Date *</label><input type="date" name="event_date" id="eventDateField" class="mc-form-control form-control" min="<?php echo date('Y-m-d', strtotime('+2 days')); ?>" required /><div id="dateError" class="mc-field-error d-none"></div></div>
                 <div class="col-md-6"><label class="mc-form-label">Event Time *</label><input type="time" name="event_time" class="mc-form-control form-control" required /></div>
-                <div class="col-md-6"><label class="mc-form-label">Number of Guests *</label><input type="number" name="guest_count" class="mc-form-control form-control" placeholder="e.g. 100" min="1" required /></div>
+                <div class="col-md-6"><label class="mc-form-label">Number of Guests *</label><input type="number" name="guest_count" id="guestCountField" class="mc-form-control form-control" placeholder="e.g. 100" min="1" required /></div>
                 <div class="col-md-6"><label class="mc-form-label">Event Duration</label><select name="duration" class="mc-form-control form-select"><option value="">Select duration...</option><option>2 hours</option><option>4 hours</option><option>6 hours</option><option>8 hours</option><option>Full day</option></select></div>
               </div>
 
@@ -129,6 +141,15 @@
             <h5 class="mc-service-title mb-3"><i class="bi bi-credit-card-fill mc-accent me-2"></i>Payment Methods</h5>
             <p class="mc-body-text small">We accept the following payment methods:</p>
             <ul class="mc-body-text small ps-3 mb-0"><li>Cash</li><li>Bank Transfer</li><li>GCash</li></ul>
+          </div>
+          <div class="mc-booking-form-card mb-4" style="background:var(--mc-off-white);border-color:var(--mc-red)">
+            <h5 class="mc-service-title mb-3"><i class="bi bi-calendar-check mc-accent me-2"></i>Booking Requirements</h5>
+            <ul class="mc-body-text small ps-3 mb-0">
+              <li class="mb-2"><strong>Standard Events:</strong> Book at least <strong>3 days</strong> before the event.</li>
+              <li class="mb-2"><strong>Large Events (150+ guests):</strong> Book at least <strong>1 week (7 days)</strong> in advance.</li>
+              <li class="mb-2"><strong>Food Only Orders:</strong> Book at least <strong>2 days</strong> before the event.</li>
+              <li><strong>Date Availability:</strong> We accommodate up to <strong>2 bookings per day</strong>.</li>
+            </ul>
           </div>
           <div class="mc-booking-form-card" style="border-color:var(--mc-red)">
             <h5 class="mc-service-title mb-3"><i class="bi bi-check-circle mc-accent me-2"></i>Why Book With Us?</h5>
@@ -241,6 +262,11 @@
       document.querySelectorAll('#bookingForm [required]').forEach(function(field) {
         field.addEventListener('input', function() { if (field.value.trim()) field.classList.remove('is-invalid'); });
       });
+      const pkgField   = document.getElementById('packageField');
+      const guestField = document.getElementById('guestCountField');
+      if (pkgField)   pkgField.addEventListener('change', updateMinDate);
+      if (guestField) guestField.addEventListener('input', updateMinDate);
+      updateMinDate();
     });
     function formatDate(val) {
       if (!val) return '—';
@@ -253,6 +279,25 @@
       const ampm = h >= 12 ? 'PM' : 'AM';
       return `${h % 12 || 12}:${String(m).padStart(2,'0')} ${ampm}`;
     }
+    function getBookingLeadRule() {
+      const pkg    = document.getElementById('packageField')?.value || '';
+      const guests = parseInt(document.getElementById('guestCountField')?.value || '0', 10);
+      if (pkg === 'Food Only')  return { days: 2, msg: 'Food-only orders must be booked at least 2 days before the event.' };
+      if (guests >= 150)        return { days: 7, msg: 'Events with 150 or more guests must be booked at least 1 week (7 days) before the event.' };
+      return { days: 3, msg: 'Please book at least 3 days before the event date.' };
+    }
+    function updateMinDate() {
+      const dateField = document.getElementById('eventDateField');
+      if (!dateField) return;
+      const { days } = getBookingLeadRule();
+      const minDate = new Date(); minDate.setHours(0,0,0,0); minDate.setDate(minDate.getDate() + days);
+      dateField.min = minDate.toISOString().split('T')[0];
+      if (dateField.value) {
+        const selected = new Date(dateField.value + 'T00:00:00');
+        const dateError = document.getElementById('dateError');
+        if (selected >= minDate) { dateField.classList.remove('is-invalid'); if (dateError) dateError.classList.add('d-none'); }
+      }
+    }
     function validateForm() {
       const form = document.getElementById('bookingForm');
       let valid = true;
@@ -260,11 +305,20 @@
         if (!field.value.trim()) { field.classList.add('is-invalid'); valid = false; }
         else { field.classList.remove('is-invalid'); }
       });
-      const dateField = form.querySelector('[name="event_date"]');
+      const dateField  = document.getElementById('eventDateField');
+      const dateError  = document.getElementById('dateError');
       if (dateField && dateField.value) {
         const today = new Date(); today.setHours(0, 0, 0, 0);
         const selected = new Date(dateField.value + 'T00:00:00');
-        if (selected < today) { dateField.classList.add('is-invalid'); valid = false; }
+        const { days, msg } = getBookingLeadRule();
+        const minDate = new Date(today); minDate.setDate(minDate.getDate() + days);
+        if (selected < minDate) {
+          dateField.classList.add('is-invalid');
+          if (dateError) { dateError.textContent = msg; dateError.classList.remove('d-none'); }
+          valid = false;
+        } else {
+          if (dateError) dateError.classList.add('d-none');
+        }
       }
       if (!document.getElementById('termsCheck').checked) {
         document.getElementById('termsError').classList.remove('d-none');

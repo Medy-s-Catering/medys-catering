@@ -89,6 +89,19 @@ document.addEventListener('DOMContentLoaded', function () {
             }
           }
 
+          if (result.receipt_url) {
+            const qrBox = document.getElementById('bookingQrBox');
+            const qrImg = document.getElementById('bookingQrImage');
+            const qrDl  = document.getElementById('bookingQrDownload');
+            if (qrBox && qrImg) {
+              const encoded = encodeURIComponent(result.receipt_url);
+              const base    = 'https://api.qrserver.com/v1/create-qr-code/?color=8B1A1A&bgcolor=ffffff&data=' + encoded;
+              qrImg.src = base + '&size=220x220';
+              if (qrDl) qrDl.href = base + '&size=400x400&download=1';
+              qrBox.classList.remove('d-none');
+            }
+          }
+
           successAlert.scrollIntoView({ behavior: 'smooth' });
         }
       } catch (err) {

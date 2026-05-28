@@ -39,3 +39,6 @@ try {
     ]);
     exit;
 }
+
+// Auto-cancel pending/confirmed bookings whose event date has already passed
+$pdo->exec("UPDATE bookings SET status = 'cancelled' WHERE event_date < CURRENT_DATE AND status IN ('pending', 'confirmed')");

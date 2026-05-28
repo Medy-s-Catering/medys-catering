@@ -215,10 +215,9 @@ document.addEventListener('DOMContentLoaded', function () {
   if (filterBtns.length && galleryItems.length) {
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active', 'mc-btn-primary'));
-        filterBtns.forEach(b => b.classList.add('mc-btn-outline-red'));
-        btn.classList.add('active', 'mc-btn-primary');
+        filterBtns.forEach(b => { b.classList.remove('mc-btn-primary'); b.classList.add('mc-btn-outline-red'); });
         btn.classList.remove('mc-btn-outline-red');
+        btn.classList.add('mc-btn-primary');
 
         const filter = btn.dataset.filter;
         galleryItems.forEach(item => {

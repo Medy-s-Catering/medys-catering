@@ -173,7 +173,7 @@
         <div class="col-lg-4"><h6 class="mc-footer-heading">Contact Us</h6><ul class="mc-footer-links"><li><i class="bi bi-geo-alt-fill mc-accent me-2"></i>Trapiche 2, Tanauan City, Batangas, Philippines, 4232</li><li><i class="bi bi-telephone-fill mc-accent me-2"></i>0999 864 8368</li><li><i class="bi bi-envelope-fill mc-accent me-2"></i>mdavesulabo@yahoo.com</li><li><i class="bi bi-clock-fill mc-accent me-2"></i>Mon–Sat: 8:00 AM – 5:00 PM</li></ul></div>
       </div>
       <hr class="mc-footer-hr mt-4" />
-      <p class="text-center text-white-50 small mb-0">&copy; 2025 Medy's Catering. All rights reserved. | Developed for Academic Research – PUP</p>
+      <p class="text-center text-white-50 small mb-0">&copy; 2026 Medy's Catering. All rights reserved. | Developed for Academic Research – PUP</p>
     </div>
   </footer>
 

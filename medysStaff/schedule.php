@@ -92,7 +92,7 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
           <div class="col-md-6"><label class="mc-label">Event Type</label><select class="mc-input" id="qType"><option>Corporate Event</option><option>Wedding / Reception</option><option>Birthday / Debut</option><option>School Activity</option><option>Family Reunion</option><option>Other</option></select></div>
           <div class="col-md-6"><label class="mc-label">Date</label><input type="date" class="mc-input" id="qDate" /></div>
           <div class="col-md-6"><label class="mc-label">Guests</label><input type="number" class="mc-input" id="qGuests" placeholder="100" /></div>
-          <div class="col-md-6"><label class="mc-label">Package</label><select class="mc-input" id="qPackage"><option>Basic</option><option>Standard</option><option>Premium</option><option>Custom</option></select></div>
+          <div class="col-md-6"><label class="mc-label">Package</label><select class="mc-input" id="qPackage"><option>Package A</option><option>Package B</option><option>Package C</option><option>Food Only</option><option>Party Tray</option><option>Custom</option></select></div>
           <div class="col-md-6"><label class="mc-label">Event Time</label><input type="time" class="mc-input" id="qTime" /></div>
           <div class="col-12"><label class="mc-label">Venue</label><input class="mc-input" id="qVenue" placeholder="Event venue address" /></div>
         </div>

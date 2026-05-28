@@ -39,7 +39,7 @@
   <section class="mc-hero d-flex align-items-center">
     <div class="mc-hero-overlay"></div>
     <div class="container position-relative z-1 text-white text-center py-5">
-      <p class="mc-hero-tagline animate-fade-up">Catering &amp; Event Management Excellence</p>
+      <p class="mc-hero-tagline animate-fade-up">Catering & Event Management Excellence</p>
       <h1 class="mc-hero-title animate-fade-up delay-1">Where Every <span class="mc-accent">Event</span><br>Becomes a Memory</h1>
       <p class="mc-hero-sub animate-fade-up delay-2 mx-auto">From intimate birthdays to grand corporate events, Medy's Catering brings passion, precision, and professionalism to every occasion.</p>
       <div class="d-flex flex-wrap justify-content-center gap-3 mt-4 animate-fade-up delay-3">
@@ -66,7 +66,7 @@
         <div class="col-lg-6">
           <div class="mc-img-frame">
             <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=800&q=80" alt="Medy's Catering event setup" class="img-fluid rounded-3 shadow-lg" />
-            <div class="mc-img-badge"><i class="bi bi-star-fill me-1"></i> Trusted Since 2010</div>
+            <div class="mc-img-badge"><i class="bi bi-star-fill me-1"></i> Trusted Since 2014</div>
           </div>
         </div>
         <div class="col-lg-6">
@@ -95,10 +95,10 @@
       </div>
       <div class="row g-4">
         <div class="col-md-6 col-lg-4"><div class="mc-service-card h-100"><div class="mc-service-icon"><i class="bi bi-building"></i></div><h5 class="mc-service-title">Corporate Events</h5><p class="mc-service-desc">Professional catering and logistics for seminars, conferences, team meetings, and company celebrations.</p><a href="services.php" class="mc-link">Learn More <i class="bi bi-arrow-right"></i></a></div></div>
-        <div class="col-md-6 col-lg-4"><div class="mc-service-card h-100"><div class="mc-service-icon"><i class="bi bi-heart"></i></div><h5 class="mc-service-title">Weddings &amp; Receptions</h5><p class="mc-service-desc">Elegant setups and exquisite menus to make your special day truly extraordinary and memorable.</p><a href="services.php" class="mc-link">Learn More <i class="bi bi-arrow-right"></i></a></div></div>
-        <div class="col-md-6 col-lg-4"><div class="mc-service-card h-100"><div class="mc-service-icon"><i class="bi bi-balloon-heart"></i></div><h5 class="mc-service-title">Birthdays &amp; Socials</h5><p class="mc-service-desc">Fun, vibrant setups with customized menus for birthdays, reunions, and all social celebrations.</p><a href="services.php" class="mc-link">Learn More <i class="bi bi-arrow-right"></i></a></div></div>
+        <div class="col-md-6 col-lg-4"><div class="mc-service-card h-100"><div class="mc-service-icon"><i class="bi bi-heart"></i></div><h5 class="mc-service-title">Weddings & Receptions</h5><p class="mc-service-desc">Elegant setups and exquisite menus to make your special day truly extraordinary and memorable.</p><a href="services.php" class="mc-link">Learn More <i class="bi bi-arrow-right"></i></a></div></div>
+        <div class="col-md-6 col-lg-4"><div class="mc-service-card h-100"><div class="mc-service-icon"><i class="bi bi-balloon-heart"></i></div><h5 class="mc-service-title">Birthdays & Socials</h5><p class="mc-service-desc">Fun, vibrant setups with customized menus for birthdays, reunions, and all social celebrations.</p><a href="services.php" class="mc-link">Learn More <i class="bi bi-arrow-right"></i></a></div></div>
         <div class="col-md-6 col-lg-4"><div class="mc-service-card h-100"><div class="mc-service-icon"><i class="bi bi-mortarboard"></i></div><h5 class="mc-service-title">School Activities</h5><p class="mc-service-desc">Reliable catering support for graduation ceremonies, school fairs, and academic events.</p><a href="services.php" class="mc-link">Learn More <i class="bi bi-arrow-right"></i></a></div></div>
-        <div class="col-md-6 col-lg-4"><div class="mc-service-card h-100"><div class="mc-service-icon"><i class="bi bi-utensils"></i></div><h5 class="mc-service-title">Buffet &amp; Catering</h5><p class="mc-service-desc">Wide selection of Filipino and international cuisine, freshly prepared and beautifully presented.</p><a href="services.php" class="mc-link">Learn More <i class="bi bi-arrow-right"></i></a></div></div>
+        <div class="col-md-6 col-lg-4"><div class="mc-service-card h-100"><div class="mc-service-icon"><i class="bi bi-utensils"></i></div><h5 class="mc-service-title">Buffet & Catering</h5><p class="mc-service-desc">Wide selection of Filipino and international cuisine, freshly prepared and beautifully presented.</p><a href="services.php" class="mc-link">Learn More <i class="bi bi-arrow-right"></i></a></div></div>
         <div class="col-md-6 col-lg-4"><div class="mc-service-card h-100"><div class="mc-service-icon"><i class="bi bi-layout-text-window"></i></div><h5 class="mc-service-title">Venue Decoration</h5><p class="mc-service-desc">Creative and customized venue styling that matches your event theme and personal taste.</p><a href="services.php" class="mc-link">Learn More <i class="bi bi-arrow-right"></i></a></div></div>
       </div>
       <div class="text-center mt-5"><a href="services.php" class="btn mc-btn-primary btn-lg px-4">View All Services</a></div>
@@ -216,7 +216,7 @@
         </div>
       </div>
       <hr class="mc-footer-hr mt-4" />
-      <p class="text-center text-white-50 small mb-0">&copy; 2025 Medy's Catering. All rights reserved. | Developed for Academic Research &ndash; PUP</p>
+      <p class="text-center text-white-50 small mb-0">&copy; 2026 Medy's Catering. All rights reserved. | Developed for Academic Research &ndash; PUP</p>
     </div>
   </footer>
 

@@ -47,6 +47,10 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
       background:var(--mc-bg); border-radius:8px; padding:0.6rem 0.9rem;
       font-size:0.82rem; color:var(--mc-gray);
     }
+    .mc-addon-check{display:flex;align-items:center;gap:0.4rem;background:var(--mc-bg);border:1.5px solid var(--mc-border);border-radius:7px;padding:0.45rem 0.65rem;cursor:pointer;transition:border-color 0.15s,background 0.15s;width:100%;}
+    .mc-addon-check:has(.mc-addon-input:checked){border-color:var(--mc-red);background:#fff5f5;}
+    .mc-addon-input{accent-color:var(--mc-red);width:14px;height:14px;flex-shrink:0;cursor:pointer;}
+    .mc-addon-label{font-size:0.8rem;font-weight:600;color:#374151;line-height:1.3;cursor:pointer;}
   </style>
 </head>
 <body>
@@ -103,10 +107,12 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
             <div class="col-6 col-md-2">
               <select id="packageFilter" class="mc-input" onchange="filterTable()">
                 <option value="">All Packages</option>
-                <option value="Basic">Basic</option>
-                <option value="Standard">Standard</option>
-                <option value="Premium">Premium</option>
+                <option value="Package A">Package A</option>
+                <option value="Package B">Package B</option>
+                <option value="Package C">Package C</option>
                 <option value="Food Only">Food Only</option>
+                <option value="Party Tray">Party Tray</option>
+                <option value="Custom">Custom</option>
               </select>
             </div>
             <div class="col-md-2">
@@ -200,11 +206,12 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
               <label class="mc-label">Package *</label>
               <select id="fPackage" class="mc-input" required>
                 <option value="">Select package...</option>
-                <option>Basic</option>
-                <option>Standard</option>
-                <option>Premium</option>
-                <option>Custom</option>
+                <option>Package A</option>
+                <option>Package B</option>
+                <option>Package C</option>
                 <option>Food Only</option>
+                <option>Party Tray</option>
+                <option>Custom</option>
               </select>
             </div>
             <div class="col-12">
@@ -245,6 +252,19 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
             <div class="col-12">
               <label class="mc-label">Special Requests / Dietary Restrictions</label>
               <textarea id="fSpecialRequests" class="mc-input" rows="2" placeholder="Allergies, special dishes, additional requests..."></textarea>
+            </div>
+            <div class="col-12">
+              <label class="mc-label">Add-Ons</label>
+              <div class="row g-2 mt-1" id="staffAddOnsGrid">
+                <?php foreach(['Ceiling Treatment','Tiffany Chair','Grazing Table','Photo & Video Coverage','Photo Booth','Assorted Kakanin Buffet','Coffee Station','Cake','Host / Emcee','On-the-Day Coordinator','Lights and Sounds','LED Wall'] as $addon): ?>
+                <div class="col-6">
+                  <label class="mc-addon-check">
+                    <input type="checkbox" class="mc-addon-input staff-addon-cb" value="<?= htmlspecialchars($addon) ?>">
+                    <span class="mc-addon-label"><i class="bi bi-plus-circle me-1" style="color:var(--mc-red);"></i><?= htmlspecialchars($addon) ?></span>
+                  </label>
+                </div>
+                <?php endforeach; ?>
+              </div>
             </div>
           </div>
         </form>
@@ -474,8 +494,11 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
         ['Guests', b.guests], ['Package', b.package], ['Venue', b.venue],
         ['Email', b.email || '—'], ['Phone', b.phone || '—'],
         ['Decoration', b.decoration || '—'], ['Theme', b.theme || '—'],
-        ['Special Requests', b.special_requests || '—'],
       ];
+      const vParsed = parseSpecialRequests(b.special_requests);
+      if (vParsed.food) fields.push(['Food Order', vParsed.food]);
+      if (vParsed.addons.length) fields.push(['Add-Ons', vParsed.addons.join(', ')]);
+      fields.push(['Special Requests', vParsed.requests || '—']);
       document.getElementById('viewModalBody').innerHTML = `
         <div style="display:grid;gap:1rem;">
           <div style="display:flex;justify-content:space-between;align-items:center;">
@@ -501,6 +524,7 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
       document.getElementById('statusIndicator').classList.add('d-none');
       document.getElementById('saveBtn').disabled = false;
       document.getElementById('fDate').min = new Date().toISOString().split('T')[0];
+      document.querySelectorAll('.staff-addon-cb').forEach(cb => cb.checked = false);
       openModal('addBookingModal');
     }
 
@@ -526,7 +550,11 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
       document.getElementById('fDuration').value        = b.duration || '';
       document.getElementById('fDecoration').value      = b.decoration || 'no';
       document.getElementById('fTheme').value           = b.theme || '';
-      document.getElementById('fSpecialRequests').value = b.special_requests || '';
+      const parsed = parseSpecialRequests(b.special_requests);
+      document.getElementById('fSpecialRequests').value = parsed.requests;
+      document.querySelectorAll('.staff-addon-cb').forEach(cb => {
+        cb.checked = parsed.addons.includes(cb.value);
+      });
 
       // Show status indicator
       document.getElementById('statusIndicator').classList.remove('d-none');
@@ -561,7 +589,10 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
         duration:         document.getElementById('fDuration').value || null,
         decoration:       document.getElementById('fDecoration').value,
         theme:            document.getElementById('fTheme').value.trim() || null,
-        special_requests: document.getElementById('fSpecialRequests').value.trim() || null,
+        special_requests: buildSpecialRequests(
+          Array.from(document.querySelectorAll('.staff-addon-cb:checked')).map(c => c.value),
+          document.getElementById('fSpecialRequests').value.trim()
+        ),
         status:           status,
       };
 
@@ -678,6 +709,26 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
       } catch (e) {
         showToast(e.message || 'Failed to reopen booking.', 'error');
       }
+    }
+
+    // ── ADD-ONS HELPERS ───────────────────────────────────────────────────────
+    function parseSpecialRequests(sr) {
+      if (!sr) return { food: '', addons: [], requests: '' };
+      const lines = sr.split('\n');
+      let food = '', addons = [], rest = [];
+      lines.forEach(line => {
+        if (line.startsWith('Food Order: ') || line.startsWith('Party Tray (')) food = line;
+        else if (line.startsWith('Add-Ons: ')) addons = line.slice(9).split(', ').filter(Boolean);
+        else rest.push(line);
+      });
+      return { food, addons, requests: rest.join('\n').trim() };
+    }
+
+    function buildSpecialRequests(addonsList, requestsText) {
+      const addons = addonsList.filter(Boolean).join(', ');
+      if (addons && requestsText) return `Add-Ons: ${addons}\n${requestsText}`;
+      if (addons) return `Add-Ons: ${addons}`;
+      return requestsText || null;
     }
 
     // ── DELETE ────────────────────────────────────────────────────────────────

@@ -54,12 +54,12 @@
   <section class="py-5 mc-section">
     <div class="container">
       <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
-        <button class="btn mc-btn-primary mc-filter-btn active" data-filter="all">All</button>
-        <button class="btn mc-btn-outline-red mc-filter-btn" data-filter="wedding">Weddings</button>
-        <button class="btn mc-btn-outline-red mc-filter-btn" data-filter="corporate">Corporate</button>
-        <button class="btn mc-btn-outline-red mc-filter-btn" data-filter="birthday">Birthdays</button>
-        <button class="btn mc-btn-outline-red mc-filter-btn" data-filter="school">School Events</button>
-        <button class="btn mc-btn-outline-red mc-filter-btn" data-filter="food">Food &amp; Setup</button>
+        <button class="mc-btn-primary mc-filter-btn" data-filter="all">All</button>
+        <button class="mc-btn-outline-red mc-filter-btn" data-filter="wedding">Weddings</button>
+        <button class="mc-btn-outline-red mc-filter-btn" data-filter="corporate">Corporate</button>
+        <button class="mc-btn-outline-red mc-filter-btn" data-filter="birthday">Birthdays</button>
+        <button class="mc-btn-outline-red mc-filter-btn" data-filter="school">School Events</button>
+        <button class="mc-btn-outline-red mc-filter-btn" data-filter="food">Food &amp; Setup</button>
       </div>
       <div class="row g-3">
         <div class="col-6 col-md-4 col-lg-3 mc-gallery-item" data-category="wedding"><div class="mc-gallery-full-thumb" onclick="openLightbox(this)"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&q=80" alt="Wedding Reception" data-caption="Wedding Reception – 2023" /><div class="mc-gallery-full-overlay"><i class="bi bi-zoom-in"></i></div></div><p class="small text-center mt-2 mc-body-text">Wedding Reception</p></div>
@@ -100,7 +100,7 @@
         <div class="col-lg-4"><h6 class="mc-footer-heading">Contact Us</h6><ul class="mc-footer-links"><li><i class="bi bi-geo-alt-fill mc-accent me-2"></i>Trapiche 2, Tanauan City, Batangas, Philippines, 4232</li><li><i class="bi bi-telephone-fill mc-accent me-2"></i>0999 864 8368</li><li><i class="bi bi-envelope-fill mc-accent me-2"></i>mdavesulabo@yahoo.com</li><li><i class="bi bi-clock-fill mc-accent me-2"></i>Mon–Sat: 8:00 AM – 5:00 PM</li></ul></div>
       </div>
       <hr class="mc-footer-hr mt-4" />
-      <p class="text-center text-white-50 small mb-0">&copy; 2025 Medy's Catering. All rights reserved. | Developed for Academic Research &ndash; PUP</p>
+      <p class="text-center text-white-50 small mb-0">&copy; 2026 Medy's Catering. All rights reserved. | Developed for Academic Research &ndash; PUP</p>
     </div>
   </footer>
 

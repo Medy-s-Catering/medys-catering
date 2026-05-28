@@ -111,7 +111,7 @@
           <div class="position-relative">
             <div class="lp-hero-img-card">
               <img src="assets/pic1.jpg" alt="Medy's Catering past event" />
-              <div class="lp-hero-badge"><i class="bi bi-shield-check-fill"></i> Trusted Since 2010 · 500+ Events</div>
+              <div class="lp-hero-badge"><i class="bi bi-shield-check-fill"></i> Trusted Since 2014 · 500+ Events</div>
             </div>
           </div>
         </div>

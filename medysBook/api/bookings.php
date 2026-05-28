@@ -32,9 +32,9 @@ if ($event_date < date('Y-m-d')) {
     exit;
 }
 
-if ($package === 'Food Only') {
+if ($package === 'Food Only' || $package === 'Party Tray') {
     $min_days = 2;
-    $min_msg  = 'Food-only orders must be booked at least 2 days before the event.';
+    $min_msg  = 'Food-only and party tray orders must be booked at least 2 days before the event.';
 } elseif ($guest_count >= 150) {
     $min_days = 7;
     $min_msg  = 'Events with 150 or more guests must be booked at least 1 week (7 days) before the event.';
@@ -83,7 +83,22 @@ $stmt->execute([
     $input['duration']         ?? null,
     $input['decoration']       ?? 'no',
     $input['theme']            ?? null,
-    $input['special_requests'] ?? null,
+    (function() use ($input) {
+        $food    = trim($input['food_selections'] ?? '');
+        $pax     = trim($input['tray_pax'] ?? '');
+        $addons  = trim($input['add_ons'] ?? '');
+        $special = trim($input['special_requests'] ?? '');
+        $parts   = [];
+        if ($food !== '') {
+            $pkg = $input['package'] ?? '';
+            $parts[] = ($pkg === 'Party Tray' && $pax !== '')
+                ? "Party Tray ({$pax} Pax): {$food}"
+                : "Food Order: {$food}";
+        }
+        if ($addons !== '') $parts[] = "Add-Ons: {$addons}";
+        if ($special !== '') $parts[] = $special;
+        return implode("\n", $parts) ?: null;
+    })(),
     $input['referral']         ?? null,
 ]);
 

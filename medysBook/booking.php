@@ -86,11 +86,40 @@
               <h6 class="fw-bold text-danger mb-3"><span class="mc-booking-step">2</span> Event Details</h6>
               <div class="row g-3 mb-4">
                 <div class="col-md-6"><label class="mc-form-label">Type of Event *</label><select name="event_type" class="mc-form-control form-select" required><option value="">Select event type...</option><option value="Corporate Event">Corporate Event</option><option value="Wedding / Reception">Wedding / Reception</option><option value="Birthday / Debut">Birthday / Debut</option><option value="School Activity">School Activity</option><option value="Family Reunion">Family Reunion</option><option value="Other">Other</option></select></div>
-                <div class="col-md-6"><label class="mc-form-label">Package *</label><select name="package" id="packageField" class="mc-form-control form-select" required><option value="">Select package...</option><option value="Basic">Basic Package</option><option value="Standard">Standard Package</option><option value="Premium">Premium Package</option><option value="Custom">Custom Package (discuss with team)</option><option value="Food Only">Food Only (Catering Only)</option></select></div>
+                <div class="col-md-6"><label class="mc-form-label">Package *</label><select name="package" id="packageField" class="mc-form-control form-select" required><option value="">Select package...</option><option value="Package A">Package A – ₱550/plate</option><option value="Package B">Package B – ₱600/plate</option><option value="Package C">Package C – ₱700/plate</option><option value="Food Only">Food Only (Catering Only)</option><option value="Party Tray">Party Tray (order by the tray)</option><option value="Custom">Custom Package (discuss with team)</option></select></div>
                 <div class="col-md-6"><label class="mc-form-label">Event Date *</label><input type="date" name="event_date" id="eventDateField" class="mc-form-control form-control" min="<?php echo date('Y-m-d', strtotime('+2 days')); ?>" required /><div id="dateError" class="mc-field-error d-none"></div></div>
                 <div class="col-md-6"><label class="mc-form-label">Event Time *</label><input type="time" name="event_time" class="mc-form-control form-control" required /></div>
                 <div class="col-md-6"><label class="mc-form-label">Number of Guests *</label><input type="number" name="guest_count" id="guestCountField" class="mc-form-control form-control" placeholder="e.g. 100" min="1" required /></div>
                 <div class="col-md-6"><label class="mc-form-label">Event Duration</label><select name="duration" class="mc-form-control form-select"><option value="">Select duration...</option><option>2 hours</option><option>4 hours</option><option>6 hours</option><option>8 hours</option><option>Full day</option></select></div>
+              </div>
+
+              <!-- Food / Tray Selection Panel -->
+              <div id="foodSelectionPanel" class="d-none mb-4" style="border:1.5px solid #ecdad8;border-radius:12px;padding:1.25rem;background:var(--mc-off-white);">
+                <h6 class="fw-bold mb-3" style="color:var(--mc-red);"><i class="bi bi-menu-button-wide-fill me-2"></i><span id="foodPanelTitle">Select Your Preferred Dishes</span></h6>
+                <div id="trayPaxRow" class="d-none mb-3">
+                  <label class="mc-form-label mb-2">Tray Size</label>
+                  <div class="d-flex gap-2 flex-wrap">
+                    <label class="mc-tray-btn"><input type="radio" name="tray_pax" value="20" class="d-none" onchange="onTrayPaxChange()"><span>20 Pax</span></label>
+                    <label class="mc-tray-btn"><input type="radio" name="tray_pax" value="30" class="d-none" onchange="onTrayPaxChange()"><span>30 Pax</span></label>
+                    <label class="mc-tray-btn"><input type="radio" name="tray_pax" value="50" class="d-none" onchange="onTrayPaxChange()"><span>50 Pax</span></label>
+                  </div>
+                </div>
+                <div class="d-flex flex-wrap gap-2 mb-3" id="foodCatTabs">
+                  <button type="button" class="btn btn-sm mc-btn-primary" data-fcat="beef">Beef</button>
+                  <button type="button" class="btn btn-sm mc-btn-outline-red" data-fcat="pork">Pork</button>
+                  <button type="button" class="btn btn-sm mc-btn-outline-red" data-fcat="chicken">Chicken</button>
+                  <button type="button" class="btn btn-sm mc-btn-outline-red" data-fcat="seafood">Fish &amp; Seafood</button>
+                  <button type="button" class="btn btn-sm mc-btn-outline-red" data-fcat="veggies">Vegetables</button>
+                  <button type="button" class="btn btn-sm mc-btn-outline-red" data-fcat="pasta">Pasta &amp; Noodles</button>
+                  <button type="button" class="btn btn-sm mc-btn-outline-red" data-fcat="dessert">Dessert</button>
+                </div>
+                <div id="foodItemsGrid" class="row g-2" style="max-height:260px;overflow-y:auto;padding-right:4px;"></div>
+                <div id="foodSummary" class="d-none mt-3" style="background:#fff;border:1.5px solid var(--mc-red);border-radius:8px;padding:0.65rem 0.9rem;">
+                  <div style="font-size:0.78rem;font-weight:700;color:var(--mc-red);margin-bottom:0.3rem;"><i class="bi bi-check2-all me-1"></i>Selected Dishes:</div>
+                  <div id="foodSummaryList" class="mc-body-text small" style="line-height:1.9;"></div>
+                </div>
+                <input type="hidden" name="food_selections" id="foodSelectionsHidden" />
+                <input type="hidden" name="tray_pax" id="trayPaxHidden" />
               </div>
 
               <h6 class="fw-bold text-danger mb-3"><span class="mc-booking-step">3</span> Venue &amp; Preferences</h6>
@@ -100,6 +129,20 @@
                 <div class="col-md-6"><label class="mc-form-label">Theme / Color Preference</label><input type="text" name="theme" class="mc-form-control form-control" placeholder="e.g. Red &amp; Gold, Garden Party" /></div>
                 <div class="col-12"><label class="mc-form-label">Special Requests / Dietary Restrictions</label><textarea name="special_requests" class="mc-form-control form-control" rows="4" placeholder="Any allergies, special dishes, or additional requests..."></textarea></div>
               </div>
+
+              <h6 class="fw-bold text-danger mb-3 mt-2"><span class="mc-booking-step">4</span> Optional Add-Ons</h6>
+              <p class="mc-body-text small mb-3">Select any extras you'd like to include. Final pricing will be confirmed by our team upon booking.</p>
+              <div class="row g-2 mb-4">
+                <?php foreach(['Ceiling Treatment','Tiffany Chair','Grazing Table','Photo & Video Coverage','Photo Booth','Assorted Kakanin Buffet','Coffee Station','Cake','Host / Emcee','On-the-Day Coordinator','Lights and Sounds','LED Wall'] as $addon): ?>
+                <div class="col-6 col-md-4">
+                  <label class="mc-addon-check">
+                    <input type="checkbox" class="mc-addon-input" value="<?= htmlspecialchars($addon) ?>" onchange="updateAddOns()">
+                    <span class="mc-addon-label"><i class="bi bi-plus-circle mc-accent me-1"></i><?= htmlspecialchars($addon) ?></span>
+                  </label>
+                </div>
+                <?php endforeach; ?>
+              </div>
+              <input type="hidden" name="add_ons" id="addOnsHidden" />
 
               <div class="row g-3 mb-4">
                 <div class="col-md-6"><label class="mc-form-label">How did you hear about us?</label><select name="referral" class="mc-form-control form-select"><option value="">Select...</option><option>Facebook / Social Media</option><option>Word of Mouth / Referral</option><option>Previous Client</option><option>Google Search</option><option>Other</option></select></div>
@@ -151,6 +194,12 @@
               <li><strong>Date Availability:</strong> We accommodate up to <strong>2 bookings per day</strong>.</li>
             </ul>
           </div>
+          <div class="mc-booking-form-card mb-4 d-none" id="pkgDetailsCard" style="border-color:var(--mc-gold);">
+            <h5 class="mc-service-title mb-1"><i class="bi bi-box-seam-fill mc-accent me-2"></i><span id="pkgDetailsName">Package</span></h5>
+            <div class="fw-bold mb-3" style="color:var(--mc-gold);font-size:1.05rem;" id="pkgDetailsPrice"></div>
+            <div id="pkgDetailsContent" class="mc-body-text small"></div>
+            <a href="services.php#packages" target="_blank" class="btn mc-btn-outline-red w-100 mt-3 btn-sm"><i class="bi bi-eye me-1"></i>View Full Details</a>
+          </div>
           <div class="mc-booking-form-card" style="border-color:var(--mc-red)">
             <h5 class="mc-service-title mb-3"><i class="bi bi-check-circle mc-accent me-2"></i>Why Book With Us?</h5>
             <ul class="mc-body-text small ps-3"><li class="mb-2">Experienced &amp; professional team</li><li class="mb-2">Customizable packages for any budget</li><li class="mb-2">Real-time event coordination updates</li><li class="mb-2">Quality food &amp; beautiful presentation</li><li class="mb-2">Trusted by 500+ happy clients</li></ul>
@@ -170,7 +219,7 @@
         <div class="col-lg-4"><h6 class="mc-footer-heading">Contact Us</h6><ul class="mc-footer-links"><li><i class="bi bi-geo-alt-fill mc-accent me-2"></i>Trapiche 2, Tanauan City, Batangas, Philippines, 4232</li><li><i class="bi bi-telephone-fill mc-accent me-2"></i>0999 864 8368</li><li><i class="bi bi-envelope-fill mc-accent me-2"></i>mdavesulabo@yahoo.com</li><li><i class="bi bi-clock-fill mc-accent me-2"></i>Mon–Sat: 8:00 AM – 5:00 PM</li></ul></div>
       </div>
       <hr class="mc-footer-hr mt-4" />
-      <p class="text-center text-white-50 small mb-0">&copy; 2025 Medy's Catering. All rights reserved. | Developed for Academic Research &ndash; PUP</p>
+      <p class="text-center text-white-50 small mb-0">&copy; 2026 Medy's Catering. All rights reserved. | Developed for Academic Research &ndash; PUP</p>
     </div>
   </footer>
 
@@ -244,6 +293,17 @@
     .mc-confirm-row:nth-child(even){background:#fdf7f6}
     .mc-confirm-label{color:#6B7280;font-weight:600;white-space:nowrap;min-width:110px}
     .mc-confirm-value{color:#111827;font-weight:600;text-align:right;word-break:break-word}
+    .mc-addon-check{display:flex;align-items:center;gap:0.45rem;background:var(--mc-off-white);border:1.5px solid #ecdad8;border-radius:8px;padding:0.55rem 0.75rem;cursor:pointer;transition:border-color 0.2s,background 0.2s;width:100%}
+    .mc-addon-check:has(.mc-addon-input:checked){border-color:var(--mc-red);background:#fff5f5}
+    .mc-addon-input{accent-color:var(--mc-red);width:15px;height:15px;flex-shrink:0;cursor:pointer}
+    .mc-addon-label{font-size:0.82rem;font-weight:600;color:#374151;line-height:1.3;cursor:pointer}
+    .mc-tray-btn{display:inline-flex;align-items:center;}
+    .mc-tray-btn span{padding:0.35rem 1.1rem;border:1.5px solid #ecdad8;border-radius:20px;font-size:0.83rem;font-weight:700;cursor:pointer;transition:all 0.15s;background:#fff;color:#374151;}
+    .mc-tray-btn input:checked + span{background:var(--mc-red);border-color:var(--mc-red);color:#fff;}
+    .mc-food-check{display:flex;align-items:flex-start;gap:0.4rem;background:#fff;border:1.5px solid #ecdad8;border-radius:7px;padding:0.45rem 0.65rem;cursor:pointer;transition:border-color 0.15s,background 0.15s;width:100%;}
+    .mc-food-check:has(input:checked){border-color:var(--mc-red);background:#fff5f5;}
+    .mc-food-check input{accent-color:var(--mc-red);width:14px;height:14px;flex-shrink:0;margin-top:2px;cursor:pointer;}
+    .mc-food-check span{font-size:0.8rem;font-weight:600;color:#374151;line-height:1.35;}
   </style>
   <script>
     function acceptTerms() {
@@ -264,9 +324,13 @@
       });
       const pkgField   = document.getElementById('packageField');
       const guestField = document.getElementById('guestCountField');
-      if (pkgField)   pkgField.addEventListener('change', updateMinDate);
+      if (pkgField)   pkgField.addEventListener('change', function() { updateMinDate(); updatePackageDetails(); toggleFoodPanel(); });
       if (guestField) guestField.addEventListener('input', updateMinDate);
       updateMinDate();
+      document.querySelectorAll('#foodCatTabs button').forEach(btn => btn.addEventListener('click', () => renderFoodItems(btn.dataset.fcat)));
+      document.getElementById('bookingForm').addEventListener('reset', function() {
+        setTimeout(() => { updatePackageDetails(); toggleFoodPanel(); updateAddOns(); }, 10);
+      });
     });
     function formatDate(val) {
       if (!val) return '—';
@@ -282,7 +346,7 @@
     function getBookingLeadRule() {
       const pkg    = document.getElementById('packageField')?.value || '';
       const guests = parseInt(document.getElementById('guestCountField')?.value || '0', 10);
-      if (pkg === 'Food Only')  return { days: 2, msg: 'Food-only orders must be booked at least 2 days before the event.' };
+      if (pkg === 'Food Only' || pkg === 'Party Tray') return { days: 2, msg: 'Food-only and party tray orders must be booked at least 2 days before the event.' };
       if (guests >= 150)        return { days: 7, msg: 'Events with 150 or more guests must be booked at least 1 week (7 days) before the event.' };
       return { days: 3, msg: 'Please book at least 3 days before the event date.' };
     }
@@ -344,6 +408,212 @@
     function submitBookingForm() {
       bootstrap.Modal.getInstance(document.getElementById('confirmModal')).hide();
       document.getElementById('bookingForm').dispatchEvent(new Event('submit', { cancelable:true, bubbles:true }));
+    }
+
+    const PACKAGES = {
+      'Package A': {
+        price: '₱550 / plate',
+        food: ['Pork','Beef','Chicken / Fish','Pasta / Noodles / Veggies','Rice','1 Dessert','Drinks (Iced Tea, Cucumber Lemonade, Lemonade)','Water & Ice'],
+        catering: ['Complete Catering Equipment','Plates, Hi Ball Glass, Utensils','Buffet Setup','Basic Balloon Decor / Flower','Table Centerpiece','Uniformed Waiters & Waitresses']
+      },
+      'Package B': {
+        price: '₱600 / plate',
+        food: ['Pork','Beef','Chicken / Fish','Pasta / Noodles','Veggies','Rice','1 Dessert','Drinks (Iced Tea, Cucumber Lemonade, Lemonade)','Water & Ice'],
+        catering: ['Complete Catering Equipment','Plates, Hi Ball Glass, Utensils, Water Goblet, Table Napkin','Buffet Setup','Balloon Decor / Flower Decor','Table Centerpiece','Stage Decoration','Name Cut Outs (Styro)','Uniformed Waiters & Waitresses','Celebrant\'s Bench / Couch']
+      },
+      'Package C': {
+        price: '₱700 / plate',
+        food: ['Pork','Beef','Fish','Chicken','Pasta / Noodles','Veggies','Rice','2 Desserts','Drinks (Iced Tea, Cucumber Lemonade, Lemonade)','Water & Ice'],
+        catering: ['Complete Catering Equipment','Plates, Hi Ball Glass, Utensils, Water Goblet, Table Napkin','Theme Stage Decor','Green Carpet','Celebrant\'s Bench / Couch','Styro Name Backdrop','Table Centerpiece','Buffet Setup','Kiddie Table Setup','Balloon Decor / Flower Decor','Entrance Decoration','Uniformed Waiters & Waitresses']
+      },
+      'Food Only': {
+        price: 'Catering Only',
+        note: 'Food and service staff provided. No venue decoration included. Preferred dishes to be discussed upon confirmation.',
+        catering: ['Uniformed Waiters & Waitresses','Complete Catering Equipment']
+      },
+      'Party Tray': {
+        price: 'Per tray (20 / 30 / 50 pax)',
+        note: 'Order specific dishes by the tray. Choose your tray size and preferred items below. Pricing per category per tray.'
+      },
+      'Custom': {
+        price: 'Price on Request',
+        note: 'Our team will work with you to create a fully personalized package. Contact us to discuss your needs and get a custom quote.'
+      }
+    };
+
+    const MENU_ITEMS = {
+      beef:    ['Grilled Korean Beef','Pastel de Lengua','Lengua Sevillana','Lengua Estofado / Estofada','Roast Beef w/ Mushroom Sauce','Beef with Mushroom Sauce','Beef Stroganoff','Beef Kare-Kare','Beef w/ Broccoli','Beef Steak Tagalog','Beef Ampalaya','Beef Salpicao','Beef Morcon','Beef Kaldereta','Braised Beef'],
+      pork:    ['Sweet and Spicy Ribs','Spicy Korean BBQ','Pork Stroganoff','Pork Chili Garlic','Pork Kaldereta','Pork Binagoongan','Pork Morcon','Pork Adobo','Pork Steak','Pata Kare-Kare','Roast Pork w/ Mushroom Sauce','Braised Pork','Chinese Asado','Pork Hamonado','Pork w/ Broccoli','Asadong Tagalog','Pork w/ Peas and Quail Eggs','Tokwa\'t Baboy','Lechon Kawali','Crispy Pata','Pork Sisig'],
+      chicken: ['Korean Chicken','Chicken Cordon Bleu','Chicken Pastel','Chicken Teriyaki','Chicken Oriental','Lemon Chicken','Garlic Chicken','Chicken w/ Peas and Quail Eggs','Chicken Flambe','Garlic Parmesan Chicken','Buffalo Wing','Honey Garlic Chicken','Hawaiian Chicken'],
+      seafood: ['Fish Fillet (w/ Sauce)','Grilled Tanigue in Lemon Butter Sauce','Baked Pink Salmon','Relyenong Hipon','Shrimp Tempura','Buttered Shrimp'],
+      veggies: ['Chopsuey','Mixed Vegetables w/ Seafood','Shrimp w/ Broccoli','Buttered Carrot and Corn','Fresh Lumpia','Fresh Lumpia Hubad','Buttered Vegetables','Sepo Egg'],
+      pasta:   ['Special Pansit Canton w/ Sotanghon','Palabok','Spaghetti','Carbonara','Tuna Pasta','Baked Macaroni','Baked Lasagna','Korean Noodles'],
+      dessert: ['Buko Pandan','Fruit Salad w/ Cream','Potato Salad','Macaroni Salad','Mango Sago w/ Jelly','Leche Flan','Buko Salad','Panna Cotta','Ube','Macapuno']
+    };
+
+    const TRAY_PRICES = {
+      '20': { beef:'₱1,400–₱1,600', pork:'₱1,300–₱1,500', chicken:'₱900–₱1,300', seafood:'₱900–₱2,400', pasta:'₱800–₱1,200', veggies:'₱900–₱1,200' },
+      '30': { beef:'₱2,000–₱2,400', pork:'₱1,800–₱2,100', chicken:'₱1,350–₱1,950', seafood:'₱1,300–₱3,600', pasta:'₱1,000–₱1,500', veggies:'₱1,350–₱1,800' },
+      '50': { beef:'₱3,250–₱3,750', pork:'₱3,000–₱3,500', chicken:'₱2,250–₱3,250', seafood:'₱2,250–₱6,000', pasta:'₱2,400–₱3,000', veggies:'₱2,250–₱3,000' }
+    };
+
+    let _activeFoodCat = 'beef';
+    const PROTEIN_PACKAGES = ['Package A', 'Package B', 'Package C'];
+    const PROTEIN_LIMIT = 2; // per category (beef, pork)
+
+    function getFoodSelections() {
+      const v = document.getElementById('foodSelectionsHidden')?.value || '';
+      return v ? v.split(', ').filter(Boolean) : [];
+    }
+    function setFoodSelections(arr) {
+      const h = document.getElementById('foodSelectionsHidden');
+      if (h) h.value = arr.join(', ');
+    }
+
+    function toggleFoodPanel() {
+      const pkg     = document.getElementById('packageField')?.value;
+      const panel   = document.getElementById('foodSelectionPanel');
+      const trayRow = document.getElementById('trayPaxRow');
+      const title   = document.getElementById('foodPanelTitle');
+      const isPkg   = PROTEIN_PACKAGES.includes(pkg);
+
+      if (!pkg || (!isPkg && pkg !== 'Food Only' && pkg !== 'Party Tray')) {
+        panel.classList.add('d-none');
+        clearFoodSelections();
+        return;
+      }
+
+      panel.classList.remove('d-none');
+      trayRow.classList.toggle('d-none', pkg !== 'Party Tray');
+
+      // Show correct category tabs
+      document.querySelectorAll('#foodCatTabs button').forEach(btn => {
+        const cat = btn.dataset.fcat;
+        btn.style.display = isPkg ? (cat === 'beef' || cat === 'pork' ? '' : 'none') : '';
+      });
+
+      if (isPkg) {
+        title.textContent = 'Choose Your Protein Dishes (2 Beef + 2 Pork)';
+        if (!['beef','pork'].includes(_activeFoodCat)) _activeFoodCat = 'beef';
+      } else if (pkg === 'Party Tray') {
+        title.textContent = 'Select Your Party Tray Items';
+      } else {
+        title.textContent = 'Select Your Preferred Dishes';
+      }
+      renderFoodItems(_activeFoodCat);
+    }
+
+    function renderFoodItems(cat) {
+      _activeFoodCat = cat;
+
+      document.querySelectorAll('#foodCatTabs button').forEach(b => {
+        if (b.style.display === 'none') return;
+        b.classList.toggle('mc-btn-primary',    b.dataset.fcat === cat);
+        b.classList.toggle('mc-btn-outline-red', b.dataset.fcat !== cat);
+      });
+
+      const pkg    = document.getElementById('packageField')?.value;
+      const isPkg  = PROTEIN_PACKAGES.includes(pkg);
+      const pax    = document.querySelector('input[name="tray_pax"]:checked')?.value;
+      const price  = (pkg === 'Party Tray' && pax) ? (TRAY_PRICES[pax]?.[cat] || null) : null;
+
+      const allSelected   = new Set(getFoodSelections());
+      const catItems      = MENU_ITEMS[cat] || [];
+      const checkedInCat  = catItems.filter(i => allSelected.has(i));
+      const limitReached  = isPkg && checkedInCat.length >= PROTEIN_LIMIT;
+
+      let html = '';
+      if (isPkg) {
+        const remaining = PROTEIN_LIMIT - checkedInCat.length;
+        const color = limitReached ? 'var(--mc-red)' : '#6b7280';
+        html += `<div class="col-12 mb-1"><small style="font-weight:700;color:${color};">
+          ${checkedInCat.length}/${PROTEIN_LIMIT} selected${remaining > 0 ? ` — choose ${remaining} more` : ' ✓ limit reached'}
+        </small></div>`;
+      }
+
+      html += catItems.map(item => {
+        const isChecked  = allSelected.has(item);
+        const isDisabled = !isChecked && limitReached;
+        return `<div class="col-6 col-md-4"><label class="mc-food-check${isDisabled ? ' opacity-50' : ''}">
+          <input type="checkbox" class="food-item-cb" value="${item.replace(/"/g,'&quot;')}"
+            ${isChecked ? 'checked' : ''} ${isDisabled ? 'disabled' : ''} onchange="onFoodItemChange(this)">
+          <span>${item}${price ? `<br><small style="color:var(--mc-red);font-weight:700;">${price}/tray</small>` : ''}</span>
+        </label></div>`;
+      }).join('');
+
+      document.getElementById('foodItemsGrid').innerHTML = html;
+    }
+
+    function onFoodItemChange(cb) {
+      const catItems  = MENU_ITEMS[_activeFoodCat] || [];
+      const nowChecked = Array.from(document.querySelectorAll('.food-item-cb:checked')).map(c => c.value);
+      // Keep other-category selections, replace current category
+      const others = getFoodSelections().filter(v => !catItems.includes(v));
+      setFoodSelections([...others, ...nowChecked]);
+      renderFoodItems(_activeFoodCat);
+      updateFoodSummary();
+    }
+
+    function onTrayPaxChange() {
+      const pax = document.querySelector('input[name="tray_pax"]:checked')?.value;
+      const h   = document.getElementById('trayPaxHidden');
+      if (h) h.value = pax || '';
+      renderFoodItems(_activeFoodCat);
+      updateFoodSummary();
+    }
+
+    function updateFoodSummary() {
+      const selected = getFoodSelections();
+      const pax      = document.querySelector('input[name="tray_pax"]:checked')?.value;
+      const pkg      = document.getElementById('packageField')?.value;
+      const summary  = document.getElementById('foodSummary');
+      const list     = document.getElementById('foodSummaryList');
+      if (selected.length) {
+        const prefix = (pkg === 'Party Tray' && pax) ? `<strong style="color:var(--mc-red);">[${pax} Pax Trays]</strong> ` : '';
+        list.innerHTML = prefix + selected.map(i =>
+          `<span style="display:inline-block;background:#fff0f0;border:1px solid #fca5a5;border-radius:12px;padding:0.1rem 0.55rem;margin:0.1rem 0.15rem;font-size:0.8rem;">${i}</span>`
+        ).join('');
+        summary.classList.remove('d-none');
+      } else {
+        summary.classList.add('d-none');
+      }
+    }
+
+    function clearFoodSelections() {
+      setFoodSelections([]);
+      document.querySelectorAll('input[name="tray_pax"]').forEach(r => r.checked = false);
+      const h = document.getElementById('trayPaxHidden'); if (h) h.value = '';
+      document.getElementById('foodSummary')?.classList.add('d-none');
+      document.getElementById('foodItemsGrid').innerHTML = '';
+    }
+
+    function updatePackageDetails() {
+      const pkg = document.getElementById('packageField')?.value;
+      const card = document.getElementById('pkgDetailsCard');
+      const nameEl = document.getElementById('pkgDetailsName');
+      const priceEl = document.getElementById('pkgDetailsPrice');
+      const contentEl = document.getElementById('pkgDetailsContent');
+      if (!pkg || !PACKAGES[pkg]) { card.classList.add('d-none'); return; }
+      const p = PACKAGES[pkg];
+      nameEl.textContent = pkg + ' — Inclusions';
+      priceEl.textContent = p.price;
+      let html = '';
+      if (p.note) html += `<div class="mb-2" style="color:#374151;font-style:italic;">${p.note}</div>`;
+      if (p.food) {
+        html += '<div class="fw-bold mb-1" style="color:var(--mc-red);">Food Inclusions</div>';
+        p.food.forEach(i => { html += `<div style="padding:0.12rem 0;"><i class="bi bi-check2 mc-accent me-1"></i>${i}</div>`; });
+      }
+      if (p.catering) {
+        html += '<div class="fw-bold mb-1 mt-2" style="color:var(--mc-red);">Service Inclusions</div>';
+        p.catering.forEach(i => { html += `<div style="padding:0.12rem 0;"><i class="bi bi-check2 mc-accent me-1"></i>${i}</div>`; });
+      }
+      contentEl.innerHTML = html;
+      card.classList.remove('d-none');
+    }
+
+    function updateAddOns() {
+      const checked = Array.from(document.querySelectorAll('.mc-addon-input:checked')).map(c => c.value);
+      document.getElementById('addOnsHidden').value = checked.join(', ');
     }
   </script>
 </body>

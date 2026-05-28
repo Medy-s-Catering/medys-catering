@@ -167,7 +167,7 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
 
       const pkgMap = {};
       bookings.forEach(b => { pkgMap[b.package] = (pkgMap[b.package]||0) + 1; });
-      const pkgColors = { Basic:'var(--mc-blue)', Standard:'var(--mc-gold)', Premium:'var(--mc-red)', Custom:'var(--mc-green)' };
+      const pkgColors = { 'Package A':'var(--mc-blue)', 'Package B':'var(--mc-gold)', 'Package C':'var(--mc-red)', 'Food Only':'var(--mc-green)', 'Party Tray':'#f97316', Custom:'#8b5cf6' };
       const pkgSorted = Object.entries(pkgMap).sort((a,b) => b[1]-a[1]);
       document.getElementById('packageList').innerHTML = pkgSorted.length
         ? pkgSorted.map(([pkg,count]) => { const pct = total ? Math.round(count/total*100) : 0; return `<div class="mc-report-row"><div style="display:flex;align-items:center;gap:0.5rem;"><span style="width:10px;height:10px;border-radius:3px;background:${pkgColors[pkg]||'#aaa'};display:inline-block;"></span>${pkg} Package</div><div style="display:flex;align-items:center;gap:0.5rem;"><div style="width:70px;height:7px;background:var(--mc-bg);border-radius:4px;overflow:hidden;"><div style="width:${pct}%;height:100%;background:${pkgColors[pkg]||'#aaa'};border-radius:4px;"></div></div><strong>${count}</strong><span style="color:var(--mc-gray);font-size:0.78rem;">(${pct}%)</span></div></div>`; }).join('')

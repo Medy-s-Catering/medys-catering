@@ -71,9 +71,9 @@ a { text-decoration: none; }
 }
 
 .mc-btn-primary {
-  background: var(--mc-red);
+  background: var(--mc-red) !important;
   color: #fff !important;
-  border: 2px solid var(--mc-red);
+  border: 2px solid var(--mc-red) !important;
   border-radius: 50px;
   font-weight: 700;
   font-family: 'Lato', sans-serif;
@@ -82,11 +82,15 @@ a { text-decoration: none; }
   padding: 0.6rem 1.6rem;
 }
 
-.mc-btn-primary:hover {
-  background: var(--mc-red-dark);
-  border-color: var(--mc-red-dark);
+.mc-btn-primary:hover,
+.mc-btn-primary:focus,
+.mc-btn-primary:active,
+.mc-btn-primary:focus-visible {
+  background: var(--mc-red-dark) !important;
+  border-color: var(--mc-red-dark) !important;
+  color: #fff !important;
+  box-shadow: none !important;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(192,57,43,0.35);
 }
 
 .mc-btn-outline {
@@ -123,6 +127,17 @@ a { text-decoration: none; }
   background: var(--mc-red);
   color: #fff !important;
   transform: translateY(-2px);
+}
+
+.mc-filter-btn {
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  -webkit-appearance: button;
+  outline: none;
 }
 
 .mc-hero {

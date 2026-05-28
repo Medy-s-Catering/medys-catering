@@ -160,7 +160,7 @@
         </div>
       </div>
       <hr class="mc-footer-hr mt-4" />
-      <p class="text-center text-white-50 small mb-0">&copy; 2025 Medy's Catering. All rights reserved. | Developed for Academic Research &ndash; PUP</p>
+      <p class="text-center text-white-50 small mb-0">&copy; 2026 Medy's Catering. All rights reserved. | Developed for Academic Research &ndash; PUP</p>
     </div>
   </footer>
 

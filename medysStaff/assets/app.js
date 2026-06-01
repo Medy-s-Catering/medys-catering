@@ -1,10 +1,5 @@
 const API = '/medysStaff/api';
 
-/* ============================================================
-   MEDY'S CATERING – STAFF SYSTEM GLOBAL SCRIPTS
-   app.js
-   ============================================================ */
-
 (function authGuard() {
   const publicPages = ['login.php', 'index.php', ''];
   const currentPage = window.location.pathname.split('/').pop();
@@ -27,8 +22,6 @@ const MC_DATA = {
   feedback: [],
 };
 
-/* ===================== API HELPERS ===================== */
-
 async function apiRequest(endpoint, options = {}) {
   const res = await fetch(API + endpoint, {
     ...options,
@@ -40,13 +33,13 @@ async function apiRequest(endpoint, options = {}) {
     },
   });
 
-  if (res.status === 401) {
+  if (res.status == 401) {
     sessionStorage.clear();
     window.location.href = 'login.php';
     return null;
   }
 
-  if (res.status === 204) return null;
+  if (res.status == 204) return null;
 
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
@@ -107,8 +100,6 @@ async function loadPageData() {
   }
 }
 
-/* ===================== SIDEBAR ===================== */
-
 function initSidebar() {
   const toggle = document.querySelector('.mc-sidebar-toggle');
   const sidebar = document.querySelector('.mc-sidebar');
@@ -135,8 +126,6 @@ function setActiveNav() {
     item.classList.toggle('active', item.dataset.page === page);
   });
 }
-
-/* ===================== TOAST ===================== */
 
 function showToast(msg, type = 'success') {
   let container = document.querySelector('.mc-toast-container');
@@ -293,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.mc-modal-overlay').forEach(overlay => {
     overlay.addEventListener('click', e => {
-      if (e.target === overlay) overlay.classList.remove('open');
+      if (e.target == overlay) overlay.classList.remove('open');
     });
   });
 });

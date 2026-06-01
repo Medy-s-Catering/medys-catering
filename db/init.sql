@@ -1,7 +1,3 @@
--- Medy's Catering – PostgreSQL schema
--- Auto-applied on first boot of the Postgres container (docker-entrypoint-initdb.d).
--- For Render, run this once against the managed database (psql $DATABASE_URL -f db/init.sql).
-
 CREATE TABLE IF NOT EXISTS bookings (
     id               SERIAL PRIMARY KEY,
     client_id        VARCHAR(32)  NOT NULL UNIQUE,
@@ -67,9 +63,6 @@ CREATE TABLE IF NOT EXISTS contact_messages (
     created_at  TIMESTAMPTZ  NOT NULL DEFAULT NOW()
 );
 
--- Seed an initial admin so /medysStaff/login.php is usable on first boot.
--- Username: admin   Password: admin123   (change immediately in production)
--- Hash generated with: php -r "echo password_hash('admin123', PASSWORD_BCRYPT);"
 INSERT INTO users (full_name, username, email, password, role, status)
 VALUES (
     'Administrator',

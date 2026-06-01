@@ -15,7 +15,6 @@ require __DIR__ . '/../config/db.php';
 $method = $_SERVER['REQUEST_METHOD'];
 $id     = isset($_GET['id']) ? (int) $_GET['id'] : null;
 
-// Allowed status transitions
 $STATUS_FLOW = [
     'pending'   => ['confirmed', 'cancelled'],
     'confirmed' => ['completed', 'cancelled'],
@@ -23,7 +22,6 @@ $STATUS_FLOW = [
     'cancelled' => ['pending'],
 ];
 
-// ── GET ───────────────────────────────────────────────────────────────────
 if ($method == 'GET') {
     $rows = $pdo->query(
         "SELECT id, client_id, client_name, email, phone, alt_phone, event_type, event_date,
@@ -53,7 +51,6 @@ if ($method == 'POST') {
         exit;
     }
 
-    // New bookings always start as pending
     $d['status'] = 'pending';
 
     do {
@@ -92,7 +89,6 @@ if ($method == 'POST') {
     exit;
 }
 
-// ── PUT ───────────────────────────────────────────────────────────────────
 if ($method == 'PUT') {
     if (!$id) { http_response_code(400); echo json_encode(['message' => 'Missing booking ID']); exit; }
 
@@ -190,7 +186,6 @@ if ($method == 'PUT') {
     exit;
 }
 
-// ── DELETE ────────────────────────────────────────────────────────────────
 if ($method == 'DELETE') {
     if (!$id) { http_response_code(400); echo json_encode(['message' => 'Missing booking ID']); exit; }
     $pdo->prepare("DELETE FROM bookings WHERE id = ?")->execute([$id]);

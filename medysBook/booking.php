@@ -352,7 +352,7 @@
     function getBookingLeadRule() {
       const pkg    = document.getElementById('packageField')?.value || '';
       const guests = parseInt(document.getElementById('guestCountField')?.value || '0', 10);
-      if (pkg === 'Food Only' || pkg === 'Party Tray') return { days: 2, msg: 'Food-only and party tray orders must be booked at least 2 days before the event.' };
+      if (pkg == 'Food Only' || pkg == 'Party Tray') return { days: 2, msg: 'Food-only and party tray orders must be booked at least 2 days before the event.' };
       if (guests >= 150)        return { days: 7, msg: 'Events with 150 or more guests must be booked at least 1 week (7 days) before the event.' };
       return { days: 3, msg: 'Please book at least 3 days before the event date.' };
     }
@@ -417,7 +417,7 @@
       const dishRow = document.getElementById('cs-dishes-row');
       const dishEl  = document.getElementById('cs-dishes');
       if (food) {
-        const prefix = (pkg === 'Party Tray' && trayPax)
+        const prefix = (pkg == 'Party Tray' && trayPax)
           ? `<span style="background:#fee2e2;border:1px solid #fca5a5;border-radius:12px;padding:0.15rem 0.6rem;font-size:0.79rem;font-weight:700;color:var(--mc-red);">${trayPax} Pax</span>`
           : '';
         const chips = food.split(', ').filter(Boolean).map(d =>
@@ -552,7 +552,7 @@
 
       if (cfg) {
         title.textContent = cfg.title;
-      } else if (pkg === 'Party Tray') {
+      } else if (pkg == 'Party Tray') {
         title.textContent = 'Select Your Party Tray Items';
       } else {
         title.textContent = 'Select Your Preferred Dishes';
@@ -564,15 +564,15 @@
       _activeFoodCat = cat;
 
       document.querySelectorAll('#foodCatTabs button').forEach(b => {
-        if (b.style.display === 'none') return;
-        b.classList.toggle('mc-btn-primary',     b.dataset.fcat === cat);
+        if (b.style.display == 'none') return;
+        b.classList.toggle('mc-btn-primary',     b.dataset.fcat == cat);
         b.classList.toggle('mc-btn-outline-red', b.dataset.fcat !== cat);
       });
 
       const pkg  = document.getElementById('packageField')?.value;
       const cfg  = PKG_FOOD_CONFIG[pkg];
       const pax  = document.querySelector('input[name="tray_pax"]:checked')?.value;
-      const price = (pkg === 'Party Tray' && pax) ? (TRAY_PRICES[pax]?.[cat] || null) : null;
+      const price = (pkg == 'Party Tray' && pax) ? (TRAY_PRICES[pax]?.[cat] || null) : null;
 
       const allSelected  = new Set(getFoodSelections());
       const catItems     = MENU_ITEMS[cat] || [];
@@ -645,7 +645,7 @@
       const summary  = document.getElementById('foodSummary');
       const list     = document.getElementById('foodSummaryList');
       if (selected.length) {
-        const prefix = (pkg === 'Party Tray' && pax) ? `<strong style="color:var(--mc-red);">[${pax} Pax Trays]</strong> ` : '';
+        const prefix = (pkg == 'Party Tray' && pax) ? `<strong style="color:var(--mc-red);">[${pax} Pax Trays]</strong> ` : '';
         list.innerHTML = prefix + selected.map(i =>
           `<span style="display:inline-block;background:#fff0f0;border:1px solid #fca5a5;border-radius:12px;padding:0.1rem 0.55rem;margin:0.1rem 0.15rem;font-size:0.8rem;">${i}</span>`
         ).join('');

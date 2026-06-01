@@ -483,7 +483,6 @@ a { text-decoration: none; }
 }
 
 .mc-page-hero {
-  /* REPLACE: background-image with actual Medy's Catering event photo as page banner */
   background: linear-gradient(135deg, var(--mc-red-dark) 0%, #3d0c07 100%);
   padding: 5rem 0 3rem;
   text-align: center;

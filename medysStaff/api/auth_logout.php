@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') exit;
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') exit;
 
 session_start();
 session_unset();

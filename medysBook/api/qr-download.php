@@ -3,7 +3,7 @@ require __DIR__ . '/../config/db.php';
 
 $client_id = trim($_GET['id'] ?? '');
 
-if ($client_id === '') {
+if ($client_id == '') {
     http_response_code(400);
     exit('Missing booking ID.');
 }

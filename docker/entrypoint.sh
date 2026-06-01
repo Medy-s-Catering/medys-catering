@@ -1,6 +1,3 @@
-#!/bin/sh
-# Apache binds to whatever PORT the platform gives us (Render sets PORT=10000),
-# falling back to 80 for local docker-compose.
 set -e
 
 PORT="${PORT:-80}"
@@ -8,8 +5,6 @@ PORT="${PORT:-80}"
 sed -ri "s!^Listen [0-9]+!Listen ${PORT}!g" /etc/apache2/ports.conf
 sed -ri "s!<VirtualHost \\*:[0-9]+>!<VirtualHost *:${PORT}>!g" /etc/apache2/sites-available/000-default.conf
 
-# Apply schema. CREATE TABLE IF NOT EXISTS + ON CONFLICT DO NOTHING make it idempotent,
-# so this is safe on every boot. Skipped if DB_INIT_SKIP=1.
 if [ -z "$DB_INIT_SKIP" ] && [ -f /var/www/html/db/init.sql ]; then
     if [ -n "$DATABASE_URL" ]; then
         CONN="$DATABASE_URL"

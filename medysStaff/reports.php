@@ -17,7 +17,6 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
     .mc-report-row:last-child{border-bottom:none}
     .mc-pkg-bar{height:10px;border-radius:5px;background:var(--mc-red)}
 
-    /* Inline bar fills — also need print-color-adjust */
     [style*="background:var(--mc-green)"],
     [style*="background:var(--mc-gold)"],
     [style*="background:var(--mc-blue)"],
@@ -28,18 +27,15 @@ if (!isset($_SESSION['mc_user'])) { header('Location: login.php'); exit; }
     }
 
     @media print {
-      /* Hide controls, show print title */
       .mc-section-hdr .d-flex { display: none !important; }
       #printTitle { display: block !important; }
 
-      /* Status breakdown inline bars */
       .mc-report-row div[style*="height:7px"] div,
       .mc-report-row div[style*="height:7px"] {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
 
-      /* Ensure stat cards show color icons */
       .mc-stat-icon.red   { background: #fee2e2 !important; color: #dc2626 !important; }
       .mc-stat-icon.green { background: #dcfce7 !important; color: #16a34a !important; }
       .mc-stat-icon.gold  { background: #fef9c3 !important; color: #ca8a04 !important; }

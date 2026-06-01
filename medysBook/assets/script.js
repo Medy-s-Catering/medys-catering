@@ -73,11 +73,36 @@ document.addEventListener('DOMContentLoaded', function () {
           return;
         }
 
+        const result = await res.json().catch(() => ({}));
+
         const successAlert = document.getElementById('bookingSuccess');
         if (successAlert) {
           bookingForm.classList.add('d-none');
           bookingForm.reset();
           successAlert.classList.remove('d-none');
+
+          if (result.client_id) {
+            const box = document.getElementById('bookingClientIdBox');
+            const val = document.getElementById('bookingClientIdValue');
+            if (box && val) { val.textContent = result.client_id; box.classList.remove('d-none'); }
+          }
+
+          if (result.receipt_url) {
+            const qrBox  = document.getElementById('bookingQrBox');
+            const qrWrap = document.getElementById('bookingQrWrap');
+            if (qrBox && qrWrap && window.QRCode) {
+              window._mcReceiptUrl = result.receipt_url;
+              window._mcClientId   = result.client_id || '';
+              qrBox.classList.remove('d-none');
+              new QRCode(qrWrap, {
+                text: result.receipt_url,
+                width: 220, height: 220,
+                colorDark: '#8B1A1A', colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+              });
+            }
+          }
+
           successAlert.scrollIntoView({ behavior: 'smooth' });
         }
       } catch (err) {
@@ -226,9 +251,20 @@ document.addEventListener('DOMContentLoaded', function () {
   counters.forEach(c => counterObserver.observe(c));
 });
 
+window.downloadBookingQR = function () {
+  var img = document.querySelector('#bookingQrWrap img');
+  if (!img) return;
+  var a = document.createElement('a');
+  a.download = 'medys-booking-' + (window._mcClientId || 'receipt') + '.png';
+  a.href = img.src;
+  a.click();
+};
+
 window.bookAgain = function () {
   var form    = document.getElementById('bookingForm');
   var success = document.getElementById('bookingSuccess');
+  var qrWrap  = document.getElementById('bookingQrWrap');
+  if (qrWrap) qrWrap.innerHTML = '';
   if (success) success.classList.add('d-none');
   if (form)    form.classList.remove('d-none');
   if (form)    form.scrollIntoView({ behavior: 'smooth' });

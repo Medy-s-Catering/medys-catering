@@ -54,14 +54,27 @@
             <h3 class="mc-section-title mb-1">Event <span class="mc-accent">Details</span></h3>
             <p class="mc-body-text mb-4">Please provide the information below. Fields marked with * are required.</p>
 
-            <div id="bookingSuccess" class="d-none text-center" role="alert" style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:14px;padding:2.5rem 2rem;">
-              <i class="bi bi-check-circle-fill" style="color:#16a34a;font-size:3rem;"></i>
-              <h5 class="mt-3 mb-2 fw-bold">Booking Request Submitted!</h5>
-              <p class="mc-body-text mb-1">Thank you for choosing <strong>Medy's Catering!</strong></p>
-              <p class="mc-body-text mb-4">Our team will contact you within <strong>24 hours</strong> to confirm your booking.</p>
-              <button onclick="bookAgain()" class="btn mc-btn-red">
-                <i class="bi bi-plus-circle me-2"></i>Book Again
-              </button>
+            <div id="bookingSuccess" class="d-none text-center" role="alert" style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:14px;padding:2rem;">
+              <i class="bi bi-check-circle-fill" style="color:#16a34a;font-size:2.5rem;"></i>
+              <h5 class="mt-3 mb-1 fw-bold">Booking Request Submitted!</h5>
+              <p class="mc-body-text mb-3">Thank you for choosing <strong>Medy's Catering!</strong> Our team will contact you within <strong>24 hours</strong> to confirm your booking.</p>
+              <div id="bookingClientIdBox" class="d-none mb-3" style="background:rgba(255,255,255,0.8);border-radius:8px;padding:0.5rem 1rem;display:inline-block;">
+                Booking ID: <strong id="bookingClientIdValue" style="letter-spacing:0.08em;color:#8B1A1A;font-size:1rem;"></strong>
+              </div>
+              <div id="bookingQrBox" class="d-none mb-3">
+                <p class="mc-body-text small mb-2"><i class="bi bi-qr-code me-1"></i>Your booking QR code — screenshot or download as your receipt.</p>
+                <div id="bookingQrWrap" style="border:3px solid #8B1A1A;border-radius:8px;padding:6px;display:inline-block;line-height:0;"></div>
+                <div class="mt-2">
+                  <button onclick="downloadBookingQR()" class="btn mc-btn-outline-red btn-sm">
+                    <i class="bi bi-download me-1"></i>Download QR
+                  </button>
+                </div>
+              </div>
+              <div>
+                <button onclick="bookAgain()" class="btn mc-btn-red">
+                  <i class="bi bi-plus-circle me-2"></i>Book Again
+                </button>
+              </div>
             </div>
 
             <form id="bookingForm" novalidate>
@@ -274,6 +287,7 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="assets/script.js"></script>
   <style>
     .mc-terms-box{background:var(--mc-off-white);border:1.5px solid #ecdad8;border-radius:10px;padding:1rem 1.25rem}

@@ -65,7 +65,7 @@
               </div>
               <div id="bookingQrBox" class="d-none text-center" style="background:#fff;border-radius:12px;padding:1.2rem;border:1.5px solid #d1fae5;">
                 <p class="mc-body-text small mb-2"><i class="bi bi-qr-code me-1"></i>Your Booking QR Code — screenshot or download this as your receipt.</p>
-                <canvas id="bookingQrCanvas" style="border:3px solid #8B1A1A;border-radius:8px;padding:6px;display:block;margin:0 auto;"></canvas>
+                <div id="bookingQrWrap" style="border:3px solid #8B1A1A;border-radius:8px;padding:6px;display:inline-block;line-height:0;"></div>
                 <div class="mt-2">
                   <button onclick="downloadBookingQR()" class="btn mc-btn-outline-red btn-sm mt-1">
                     <i class="bi bi-download me-1"></i>Download QR
@@ -284,7 +284,7 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="assets/script.js"></script>
   <style>
     .mc-terms-box{background:var(--mc-off-white);border:1.5px solid #ecdad8;border-radius:10px;padding:1rem 1.25rem}

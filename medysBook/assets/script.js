@@ -90,15 +90,19 @@ document.addEventListener('DOMContentLoaded', function () {
           }
 
           if (result.receipt_url) {
-            const qrBox    = document.getElementById('bookingQrBox');
-            const qrCanvas = document.getElementById('bookingQrCanvas');
-            if (qrBox && qrCanvas && window.QRCode) {
+            const qrBox  = document.getElementById('bookingQrBox');
+            const qrWrap = document.getElementById('bookingQrWrap');
+            if (qrBox && qrWrap && window.QRCode) {
               window._mcReceiptUrl = result.receipt_url;
               window._mcClientId   = result.client_id || '';
               qrBox.classList.remove('d-none');
-              QRCode.toCanvas(qrCanvas, result.receipt_url, {
-                width: 220, margin: 2,
-                color: { dark: '#8B1A1A', light: '#ffffff' }
+              new QRCode(qrWrap, {
+                text: result.receipt_url,
+                width: 220,
+                height: 220,
+                colorDark: '#8B1A1A',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
               });
             }
           }
@@ -252,14 +256,11 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 window.downloadBookingQR = function () {
-  var url = window._mcReceiptUrl;
   var id  = window._mcClientId || 'receipt';
-  if (!url || !window.QRCode) return;
-  QRCode.toDataURL(url, { width: 500, margin: 2, color: { dark: '#8B1A1A', light: '#ffffff' } }, function (err, dataUrl) {
-    if (err) return;
-    var a = document.createElement('a');
-    a.download = 'medys-booking-' + id + '.png';
-    a.href = dataUrl;
-    a.click();
-  });
+  var img = document.querySelector('#bookingQrWrap img');
+  if (!img) return;
+  var a = document.createElement('a');
+  a.download = 'medys-booking-' + id + '.png';
+  a.href = img.src;
+  a.click();
 };

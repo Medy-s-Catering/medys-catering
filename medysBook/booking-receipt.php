@@ -213,7 +213,7 @@ function parse_sr(string $sr): array {
             <div class="mc-booking-form-card text-center mt-4" style="padding:2rem 1.5rem;">
               <p class="mc-section-pre mb-1">Your Booking QR Code</p>
               <p class="mc-body-text mb-4" style="font-size:0.86rem;max-width:380px;margin-inline:auto;">
-                Scan this QR code to access your booking receipt anytime. A copy has also been sent to your email.
+                Scan this QR code to access your booking receipt anytime.
               </p>
 
               <!-- Booking ID badge -->

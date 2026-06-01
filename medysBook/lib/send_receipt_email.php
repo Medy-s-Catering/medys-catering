@@ -15,6 +15,7 @@ function send_receipt_email(array $booking, string $receipt_url): bool {
         $mail->Password   = MAIL_PASSWORD;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = MAIL_PORT;
+        $mail->Timeout    = 15;
         $mail->SMTPDebug  = 0;
 
         $mail->setFrom(MAIL_FROM, MAIL_FROM_NAME);

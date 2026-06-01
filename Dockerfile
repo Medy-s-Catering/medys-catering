@@ -13,8 +13,8 @@ COPY docker/apache-vhost.conf /etc/apache2/sites-available/000-default.conf
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-COPY composer.json /var/www/html/composer.json
-RUN composer install --no-dev --optimize-autoloader --working-dir=/var/www/html
+COPY composer.json composer.lock /var/www/html/
+RUN composer install --no-dev --optimize-autoloader --no-interaction --working-dir=/var/www/html
 
 COPY . /var/www/html/
 RUN chown -R www-data:www-data /var/www/html

@@ -109,14 +109,34 @@ $booking_row = $pdo->prepare("SELECT * FROM bookings WHERE client_id = ?");
 $booking_row->execute([$client_id]);
 $booking_data = $booking_row->fetch(PDO::FETCH_ASSOC);
 
-if ($booking_data) {
-    require_once __DIR__ . '/../lib/send_receipt_email.php';
-    send_receipt_email($booking_data, $receipt_url);
-}
-
-http_response_code(201);
-echo json_encode([
+// Send the 201 response to the client immediately — email fires after.
+$response_body = json_encode([
     'message'     => 'Booking submitted successfully.',
     'client_id'   => $client_id,
     'receipt_url' => $receipt_url,
 ]);
+
+http_response_code(201);
+header('Content-Type: application/json');
+header('Content-Encoding: identity');   // disable gzip so Apache doesn't buffer
+header('Content-Length: ' . strlen($response_body));
+header('Connection: close');
+ignore_user_abort(true);
+while (ob_get_level() > 0) ob_end_clean();
+echo $response_body;
+flush();
+
+// Client already received the response — send email with no impact on load time.
+if ($booking_data) {
+    $autoload = __DIR__ . '/../../vendor/autoload.php';
+    if (file_exists($autoload)) {
+        try {
+            require_once __DIR__ . '/../lib/send_receipt_email.php';
+            send_receipt_email($booking_data, $receipt_url);
+        } catch (\Throwable $e) {
+            error_log('Email send error: ' . $e->getMessage());
+        }
+    } else {
+        error_log('PHPMailer not installed — run composer install in project root.');
+    }
+}

@@ -1,12 +1,11 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
-require_once __DIR__ . '/../config/mail.php';
-
 function send_receipt_email(array $booking, string $receipt_url): bool {
+    require_once __DIR__ . '/../../vendor/autoload.php';
+    require_once __DIR__ . '/../config/mail.php';
+
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
@@ -16,6 +15,7 @@ function send_receipt_email(array $booking, string $receipt_url): bool {
         $mail->Password   = MAIL_PASSWORD;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = MAIL_PORT;
+        $mail->SMTPDebug  = 0;
 
         $mail->setFrom(MAIL_FROM, MAIL_FROM_NAME);
         $mail->addAddress($booking['email'], $booking['client_name']);
@@ -29,7 +29,9 @@ function send_receipt_email(array $booking, string $receipt_url): bool {
         $mail->send();
         return true;
     } catch (Exception $e) {
-        error_log("Mailer Error ({$booking['client_id']}): " . $mail->ErrorInfo);
+        $log = date('[Y-m-d H:i:s] ') . "Mailer Error ({$booking['client_id']}): " . $mail->ErrorInfo . PHP_EOL;
+        error_log($log);
+        file_put_contents(__DIR__ . '/../../mail.log', $log, FILE_APPEND | LOCK_EX);
         return false;
     }
 }

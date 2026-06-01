@@ -12,5 +12,6 @@ Thumbs.db
 
 # Logs / IDE
 *.log
+mail.log
 .idea/
 .vscode/

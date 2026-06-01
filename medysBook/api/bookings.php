@@ -109,18 +109,6 @@ $booking_row = $pdo->prepare("SELECT * FROM bookings WHERE client_id = ?");
 $booking_row->execute([$client_id]);
 $booking_data = $booking_row->fetch(PDO::FETCH_ASSOC);
 
-if ($booking_data) {
-    $autoload = __DIR__ . '/../../vendor/autoload.php';
-    if (file_exists($autoload)) {
-        try {
-            require_once __DIR__ . '/../lib/send_receipt_email.php';
-            send_receipt_email($booking_data, $receipt_url);
-        } catch (\Throwable $e) {
-            error_log('Email send error: ' . $e->getMessage());
-        }
-    }
-}
-
 http_response_code(201);
 header('Content-Type: application/json');
 echo json_encode([
@@ -128,3 +116,12 @@ echo json_encode([
     'client_id'   => $client_id,
     'receipt_url' => $receipt_url,
 ]);
+
+if ($booking_data) {
+    $worker = __DIR__ . '/../lib/email_worker.php';
+    $cmd    = '/usr/local/bin/php ' . escapeshellarg($worker)
+            . ' ' . escapeshellarg($client_id)
+            . ' ' . escapeshellarg($receipt_url)
+            . ' > /dev/null 2>&1 &';
+    exec($cmd);
+}

@@ -47,7 +47,7 @@
   <section class="py-5 mc-section">
     <div class="container">
       <div class="row align-items-center g-5 mb-5 pb-4 border-bottom">
-        <div class="col-lg-5"><div class="mc-img-frame"><img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=700&q=80" alt="Corporate event" class="img-fluid rounded-3 shadow" /></div></div>
+        <div class="col-lg-5"><div class="mc-img-frame"><img src="https://images.pexels.com/photos/18749086/pexels-photo-18749086.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Corporate catering buffet" class="img-fluid rounded-3 shadow" /></div></div>
         <div class="col-lg-7">
           <div class="mc-service-icon mb-3"><i class="bi bi-building"></i></div>
           <h3 class="mc-section-title">Corporate <span class="mc-accent">Events</span></h3>
@@ -58,7 +58,7 @@
       </div>
 
       <div class="row align-items-center g-5 mb-5 pb-4 border-bottom flex-lg-row-reverse">
-        <div class="col-lg-5"><div class="mc-img-frame"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=700&q=80" alt="Wedding reception" class="img-fluid rounded-3 shadow" /></div></div>
+        <div class="col-lg-5"><div class="mc-img-frame"><img src="https://images.pexels.com/photos/32644053/pexels-photo-32644053.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Wedding catering table with dishes" class="img-fluid rounded-3 shadow" /></div></div>
         <div class="col-lg-7">
           <div class="mc-service-icon mb-3"><i class="bi bi-heart"></i></div>
           <h3 class="mc-section-title">Weddings & <span class="mc-accent">Receptions</span></h3>
@@ -69,7 +69,7 @@
       </div>
 
       <div class="row align-items-center g-5 mb-5 pb-4 border-bottom">
-        <div class="col-lg-5"><div class="mc-img-frame"><img src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?w=700&q=80" alt="Birthday celebration" class="img-fluid rounded-3 shadow" /></div></div>
+        <div class="col-lg-5"><div class="mc-img-frame"><img src="https://images.pexels.com/photos/31972322/pexels-photo-31972322.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Birthday party catering table" class="img-fluid rounded-3 shadow" /></div></div>
         <div class="col-lg-7">
           <div class="mc-service-icon mb-3"><i class="bi bi-balloon-heart"></i></div>
           <h3 class="mc-section-title">Birthdays & <span class="mc-accent">Socials</span></h3>
@@ -80,7 +80,7 @@
       </div>
 
       <div class="row align-items-center g-5 mb-5 pb-4 border-bottom flex-lg-row-reverse">
-        <div class="col-lg-5"><div class="mc-img-frame"><img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=700&q=80" alt="School event" class="img-fluid rounded-3 shadow" /></div></div>
+        <div class="col-lg-5"><div class="mc-img-frame"><img src="https://images.pexels.com/photos/35247187/pexels-photo-35247187.jpeg?auto=compress&cs=tinysrgb&w=700" alt="School event catering buffet" class="img-fluid rounded-3 shadow" /></div></div>
         <div class="col-lg-7">
           <div class="mc-service-icon mb-3"><i class="bi bi-mortarboard"></i></div>
           <h3 class="mc-section-title">School <span class="mc-accent">Activities</span></h3>

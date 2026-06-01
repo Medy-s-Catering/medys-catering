@@ -105,6 +105,15 @@ $stmt->execute([
 $scheme      = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
 $receipt_url = $scheme . '://' . $_SERVER['HTTP_HOST'] . '/medysBook/booking-receipt.php?id=' . urlencode($client_id);
 
+$booking_row = $pdo->prepare("SELECT * FROM bookings WHERE client_id = ?");
+$booking_row->execute([$client_id]);
+$booking_data = $booking_row->fetch(PDO::FETCH_ASSOC);
+
+if ($booking_data) {
+    require_once __DIR__ . '/../lib/send_receipt_email.php';
+    send_receipt_email($booking_data, $receipt_url);
+}
+
 http_response_code(201);
 echo json_encode([
     'message'     => 'Booking submitted successfully.',

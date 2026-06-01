@@ -11,7 +11,9 @@
       "PowerShell(netstat -ano)",
       "PowerShell(Get-Process -Id 4968, 14556)",
       "PowerShell(Get-Process -Id 4968 -ErrorAction SilentlyContinue)",
-      "PowerShell(Get-Process -Id 14556 -ErrorAction SilentlyContinue)"
+      "PowerShell(Get-Process -Id 14556 -ErrorAction SilentlyContinue)",
+      "WebSearch",
+      "WebFetch(domain:www.pexels.com)"
     ],
     "additionalDirectories": [
       "d:\\Projects\\medys-catering\\docker"

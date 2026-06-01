@@ -56,7 +56,7 @@
         </div>
         <div class="col-lg-6">
           <div class="mc-img-frame">
-            <img src="https://images.unsplash.com/photo-1581349485608-9469926a8e5e?w=800&q=80" alt="Medy's Catering story" class="img-fluid rounded-3 shadow-lg" />
+            <img src="https://images.pexels.com/photos/32805961/pexels-photo-32805961.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Medy's Catering staff serving" class="img-fluid rounded-3 shadow-lg" />
           </div>
         </div>
       </div>
@@ -91,7 +91,7 @@
         </div>
         <div class="col-lg-7">
           <div class="mc-img-frame">
-            <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80" alt="Medy's Catering food and service" class="img-fluid rounded-3 shadow-lg" />
+            <img src="https://images.pexels.com/photos/4007058/pexels-photo-4007058.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Catering food trays" class="img-fluid rounded-3 shadow-lg" />
           </div>
         </div>
       </div>

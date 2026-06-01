@@ -65,7 +65,7 @@
       <div class="row align-items-center g-5">
         <div class="col-lg-6">
           <div class="mc-img-frame">
-            <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=800&q=80" alt="Medy's Catering event setup" class="img-fluid rounded-3 shadow-lg" />
+            <img src="https://images.pexels.com/photos/2291367/pexels-photo-2291367.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Medy's Catering buffet setup" class="img-fluid rounded-3 shadow-lg" />
             <div class="mc-img-badge"><i class="bi bi-star-fill me-1"></i> Trusted Since 2014</div>
           </div>
         </div>
@@ -115,7 +115,7 @@
         <div class="col-6 col-md-4 col-lg-3"><div class="mc-gallery-thumb"><img src="pictures/pic2.jpg" alt="Wedding event" class="img-fluid" /><div class="mc-gallery-overlay"><span>Wedding Reception</span></div></div></div>
         <div class="col-6 col-md-4 col-lg-3"><div class="mc-gallery-thumb"><img src="pictures/piccorp1.jpg" alt="Corporate event" class="img-fluid" /><div class="mc-gallery-overlay"><span>Corporate Event</span></div></div></div>
         <div class="col-6 col-md-4 col-lg-3"><div class="mc-gallery-thumb"><img src="pictures/picbirth.jpg" alt="Birthday party" class="img-fluid" /><div class="mc-gallery-overlay"><span>Birthday Party</span></div></div></div>
-        <div class="col-6 col-md-4 col-lg-3"><div class="mc-gallery-thumb"><img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=400&q=80" alt="Buffet setup" class="img-fluid" /><div class="mc-gallery-overlay"><span>Buffet Setup</span></div></div></div>
+        <div class="col-6 col-md-4 col-lg-3"><div class="mc-gallery-thumb"><img src="https://images.pexels.com/photos/12253094/pexels-photo-12253094.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Catering buffet food warmers" class="img-fluid" /><div class="mc-gallery-overlay"><span>Buffet Setup</span></div></div></div>
       </div>
       <div class="text-center mt-4"><a href="gallery.php" class="btn mc-btn-outline btn-lg px-4">View Full Gallery</a></div>
     </div>
